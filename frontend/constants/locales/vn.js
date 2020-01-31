@@ -307,6 +307,14 @@ export default {
     TOAST_SEND_CUSTOMERVOICE_OK: "Rất cảm ơn nhận xét của bạn, chúng tôi sẽ tiếp thu và xử lý ngay khi có thể.",
 
 
+    NHOME_GENERAL_WORLD:"Thế Giới",
+    NHOME_GENERAL_CHINA:"Trung Quốc",
+
+    NHOME_HEADER_TOTAL_CASE_BYTIME:"Tổng Số Ca Nhiễm Bệnh",
+    NHOME_HEADER_TOTAL_DEATH_BYTIME:"Tổng Số Ca Tử Vong",
+    NHOME_HEADER_COUNTRIES_BAR:"Quốc Gia có Ca Nhiễm Bệnh",
+
+    NHOME_GENERAL_PREV_DAY: "Ngày Trước",
 
     NHOME_CASE_CONFIRMED: "Nhiễm Bệnh",
     NHOME_CASE_DEATH: "Tử Vong",

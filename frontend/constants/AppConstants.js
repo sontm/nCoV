@@ -12,8 +12,8 @@ import Layout from './Layout';
 //APpID:ca-app-pub-7157132347657223~8153766505
 
 //"ca-app-pub-5235227193347581/5528923501" // StepsMemory
-const ADS_BANNERID_ANDROID = "ca-app-pub-3071645117258809/4447951010"
-const ADS_INTERESTIALID_ANDROID = "ca-app-pub-3071645117258809/6882542661"
+const ADS_BANNERID_ANDROID = "ca-app-pub-3071645117258809/6534309870"
+const ADS_INTERESTIALID_ANDROID = "ca-app-pub-3071645117258809/2595064866"
 
 const ADS_BANNERID_IOS= "ca-app-pub-3940256099942544/6300978111"
 const ADS_INTERESTIALID_IOS = "ca-app-pub-3940256099942544/1033173712"
@@ -25,7 +25,7 @@ const INTERESTIAL_ID = Platform.OS === 'ios' ? ADS_INTERESTIALID_IOS : ADS_INTER
 const NCOV_DATA = {
     data: [
         {
-            date:"2020-01-31 12:45",
+            date:"2020-01-31",
             world: {
                 case: 9929,
                 death: 213,
@@ -50,47 +50,47 @@ const NCOV_DATA = {
                 name_vn:"Thailand",
                 code:"thai",
                 case: 19,
-                death: 0,
+                death: 3,
             },{
                 name:"Singapore",
                 name_vn:"Singapore",
                 code:"sg",
                 case: 16,
-                death: 0,
+                death: 2,
             },{
                 name:"Japan",
                 name_vn:"Japan",
                 code:"jp",
                 case: 15,
-                death: 0,
+                death: 2,
 
             },{
                 name:"Hong Kong",
                 name_vn:"Hong Kong",
                 code:"hk",
                 case: 12,
-                death: 0,
+                death: 3,
 
             },{
                 name:"South Korea",
                 name_vn:"South Korea",
                 code:"kr",
                 case: 11,
-                death: 0,
+                death: 5,
 
             },{
                 name:"Taiwan",
                 name_vn:"Taiwan",
                 code:"tw",
                 case: 9,
-                death: 0,
+                death: 6,
 
             },{
                 name:"Australia",
                 name_vn:"Australia",
                 code:"aus",
                 case: 9,
-                death: 0,
+                death: 5,
 
             },{
                 name:"Malaysia",
@@ -215,7 +215,7 @@ const NCOV_DATA = {
             }
             ]
         },{
-            date:"2020-01-30 12:45",
+            date:"2020-01-30",
             world: {
                 case: 7818,
                 death: 170,
@@ -358,7 +358,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-29 12:45",
+            date:"2020-01-29",
             world: {
                 case: 6065,
                 death: 132,
@@ -483,7 +483,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-28 12:45",
+            date:"2020-01-28",
             world: {
                 case: 4593,
                 death: 106,
@@ -602,7 +602,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-27 12:45",
+            date:"2020-01-27",
             world: {
                 case: 2798,
                 death: 80,
@@ -703,7 +703,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-26 12:45",
+            date:"2020-01-26",
             world: {
                 case: 2014,
                 death: 56,
@@ -798,7 +798,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-25 12:45",
+            date:"2020-01-25",
             world: {
                 case: 1320,
                 death: 41,
@@ -887,7 +887,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-24 12:45",
+            date:"2020-01-24",
             world: {
                 case: 846,
                 death: 25,
@@ -958,7 +958,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-23 12:45",
+            date:"2020-01-23",
             world: {
                 case: 581,
                 death: 17,
@@ -1017,7 +1017,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-22 12:45",
+            date:"2020-01-22",
             world: {
                 case: 314,
                 death: 6,
@@ -1058,7 +1058,7 @@ const NCOV_DATA = {
                 death: 0
             }]
         },{
-            date:"2020-01-21 12:45",
+            date:"2020-01-21",
             world: {
                 case: 282,
                 death: 6,
@@ -1101,7 +1101,7 @@ const NCOV_DATA = {
 
 export default {
     NCOV_DATA: NCOV_DATA,
-    
+
     DEFAULT_VERSION: "0.2.4",
     IS_DEBUG_MODE: true,
     // TODO Enable these values

@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 1040,
-  "expoServerNgrokUrl": "https://m8-qdj.sansanvn.frontend.exp.direct",
-  "packagerNgrokUrl": "https://packager.m8-qdj.sansanvn.frontend.exp.direct",
-  "ngrokPid": 1058,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

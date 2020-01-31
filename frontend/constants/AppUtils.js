@@ -32,7 +32,7 @@ dateFormat.i18n = {
         'CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7',
     ],
     monthNames: [
-        'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11','T12',
+        '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11','12',
         'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11','Tháng 12',
     ],
     timeNames: [
@@ -260,7 +260,7 @@ class AppUtils {
         let isExist = false;
         for (let i = 0; i < arr.length; i++) {
             let cur = arr[i];
-            if (cur.getFullYear() == val.getFullYear() && cur.getMonth() == val.getMonth()) {
+            if (cur.getFullYear() == val.getFullYear() && cur.getMonth() == val.getMonth() && cur.getDate() == val.getDate()) {
                 // Different, not exist
                 isExist = true;
                 break;
