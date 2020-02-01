@@ -234,20 +234,31 @@ class Backend {
     //         .catch((error) => {onError(error);});
     // }
 
+
+
+
+
+    
     getLatestAppDataOn(onOK, onError) {
-        axios.get("/app/lateston",
+        axios.get("/ncov/lateston",
            // { headers: this.createHeader(), withCredentials: true})
             { headers: this.createHeader(),})
             .then((response) => {onOK(response);})
             .catch((error) => {onError(error);});
     }
     getLatestAppData(onOK, onError) {
-        axios.get("/app/appdata",
+        axios.get("/ncov/data",
            // { headers: this.createHeader(), withCredentials: true})
             { headers: this.createHeader(),})
             .then((response) => {onOK(response);})
             .catch((error) => {onError(error);});
     }
+
+
+
+
+
+
     getPromoteImageLink(onOK, onError) {
         axios.get("/app/prourl",
            // { headers: this.createHeader(), withCredentials: true})

@@ -11,6 +11,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
+import OutsideChinaScreen from '../screens/OutsideChinaScreen';
+import VietnamScreen from '../screens/VietnamScreen';
+import ChinaScreen from '../screens/ChinaScreen';
+
+
 import NotificationScreen from '../screens/NotificationScreen';
 import RegisterVehicleScreen from '../screens/RegisterVehicleScreen';
 import SetMaxOdometer from '../screens/addinfo/SetMaxOdometer';
@@ -66,7 +71,9 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Notification: NotificationScreen
+    OutsideChinaScreen: OutsideChinaScreen,
+    VietnamScreen: VietnamScreen,
+    ChinaScreen: ChinaScreen
   },
   config
 );

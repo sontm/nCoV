@@ -23,11 +23,323 @@ const BANNER_ID = Platform.OS === 'ios' ? ADS_BANNERID_IOS : ADS_BANNERID_ANDROI
 const INTERESTIAL_ID = Platform.OS === 'ios' ? ADS_INTERESTIALID_IOS : ADS_INTERESTIALID_ANDROID;
 
 const NCOV_DATA = {
+    vietnam_province: [
+        {
+            date:"2020-02-01T08:00:00.007Z",
+            provinces:[
+                {
+                    name:"Hà Nội",
+                    case: 2,
+                    death: 0
+                },{
+                    name:"TP.HCM",
+                    case: 2,
+                    death: 0
+                },{
+                    name:"Thanh Hoá",
+                    case: 1,
+                    death: 0
+                },{
+                    name:"Khánh Hoà",
+                    case: 1,
+                    death: 0
+                }
+            ]
+        }
+    ],
+    china_province: [
+        {
+            date:"2020-01-31T08:00:00.007Z",
+            provinces:[
+                {
+                    name:"Hubei",
+                    case: 7153
+                },{
+                    name:"Zhejiang",
+                    case: 599
+                },{
+                    name:"Guangdong",
+                    case: 520
+                },{
+                    name:"Henan",
+                    case: 422
+                },{
+                    name:"Hunan",
+                    case: 389
+                },{
+                    name:"Anhui",
+                    case: 297
+                },{
+                    name:"Jiangxi",
+                    case: 286
+                },{
+                    name:"Chongqing",
+                    case: 238
+                },{
+                    name:"Sichuan",
+                    case: 207
+                },{
+                    name:"Shandong",
+                    case: 202
+                },{
+                    name:"Jiangsu",
+                    case: 202
+                },{
+                    name:"Shanghai",
+                    case: 169
+                },{
+                    name:"Beijing",
+                    case: 156
+                },{
+                    name:"Fujian",
+                    case: 144
+                },{
+                    name:"Shaanxi",
+                    case: 101
+                },{
+                    name:"Guangxi",
+                    case: 100
+                },{
+                    name:"Hebei",
+                    case: 96
+                },{
+                    name:"Yunnan",
+                    case: 91
+                },{
+                    name:"Heilongjiang",
+                    case: 80
+                },{
+                    name:"Liaoning",
+                    case: 60
+                },{
+                    name:"Hainan",
+                    case: 60
+                },{
+                    name:"Shanxi",
+                    case: 47
+                },{
+                    name:"Tianjin",
+                    case: 37
+                },{
+                    name:"Gansu",
+                    case: 35
+                },{
+                    name:"Guizhou",
+                    case: 29
+                },{
+                    name:"Ningxia",
+                    case: 26
+                },{
+                    name:"Inner Mongolia",
+                    case: 23
+                },{
+                    name:"Xinjia",
+                    case: 18
+                },{
+                    name:"Jilin",
+                    case: 17
+                },{
+                    name:"Qinghai",
+                    case: 9
+                },{
+                    name:"Xizang",
+                    case: 1
+                }
+            ]
+        }
+    ],
     data: [
         {
+            date:"2020-02-01T08:00:00.007Z",
+            world: {
+                case: 11948,
+                death: 259,
+            },
+            tranmission_rate_min: 3.0,
+            tranmission_rate_max: 4.0,
+            fatality_rate: 2,
+            incubation_period_min: 2,
+            incubation_period_max: 14,
+            countries: [
+            {
+                name:"China",
+                name_vn:"China",
+                code:"cn",
+                case: 11791,
+                death: 259,
+                suspect: null,
+                isolate: null,
+                curve: null
+            },{
+                name:"Thailand",
+                name_vn:"Thailand",
+                code:"thai",
+                case: 19,
+                death: 3,
+            },{
+                name:"Japan",
+                name_vn:"Japan",
+                code:"jp",
+                case: 17,
+                death: 2,
+            },{
+                name:"Singapore",
+                name_vn:"Singapore",
+                code:"sg",
+                case: 16,
+                death: 2,
+            },{
+                name:"Hong Kong",
+                name_vn:"Hong Kong",
+                code:"hk",
+                case: 13,
+                death: 3,
+            },{
+                name:"South Korea",
+                name_vn:"South Korea",
+                code:"kr",
+                case: 11,
+                death: 5,
+
+            },{
+                name:"Taiwan",
+                name_vn:"Taiwan",
+                code:"tw",
+                case: 10,
+                death: 6,
+            },{
+                name:"Australia",
+                name_vn:"Australia",
+                code:"aus",
+                case: 9,
+                death: 5,
+            },{
+                name:"Malaysia",
+                name_vn:"Malaysia",
+                code:"ma",
+                case: 8,
+                death: 0,
+            },{
+                name:"United States",
+                name_vn:"United States",
+                code:"us",
+                case: 7,
+                death: 0,
+            },{
+                name:"Germany",
+                name_vn:"Germany",
+                code:"ger",
+                case: 7,
+                death: 0,
+            },{
+                name:"Macao",
+                name_vn:"Macao",
+                code:"Macao",
+                case: 7,
+                death: 0
+            },{
+                name:"France",
+                name_vn:"France",
+                code:"fr",
+                case: 6,
+                death: 0,
+
+            },{
+                name:"Vietnam",
+                name_vn:"Vietnam",
+                code:"vn",
+                case: 6,
+                death: 0,
+                suspect: 28,
+                isolate: 93,
+            },{
+                name:"UAE",
+                name_vn:"UAE",
+                code:"uae",
+                case: 4,
+                death: 0,
+            },{
+                name:"Canada",
+                name_vn:"Canada",
+                code:"Canada",
+                case: 4,
+                death: 0,
+            },{
+                name:"United Kingdom",
+                name_vn:"United Kingdom",
+                code:"uk",
+                case: 2,
+                death: 0,
+
+            },{
+                name:"Russia",
+                name_vn:"Russia",
+                code:"ru",
+                case: 2,
+                death: 0,
+
+            },{
+                name:"Italy",
+                name_vn:"Italy",
+                code:"Italy",
+                case: 2,
+                death: 0,
+            },{
+                name:"Finland",
+                name_vn:"Finland",
+                code:"Finland",
+                case: 1,
+                death: 0,
+            },{
+                name:"Sri Lanka",
+                name_vn:"Sri Lanka",
+                code:"Sri Lanka",
+                case: 1,
+                death: 0,
+
+            },{
+                name:"Cambodia",
+                name_vn:"Cambodia",
+                code:"Cambodia",
+                case: 1,
+                death: 0,
+            },{
+                name:"Philippines",
+                name_vn:"Philippines",
+                code:"Philippines",
+                case: 1,
+                death: 0,
+            },{
+                name:"Nepal",
+                name_vn:"Nepal",
+                code:"Nepal",
+                case: 1,
+                death: 0,
+
+            },{
+                name:"India",
+                name_vn:"India",
+                code:"India",
+                case: 1,
+                death: 0,
+            },{
+                name:"Spain",
+                name_vn:"Spain",
+                code:"Spain",
+                case: 1,
+                death: 0,
+            },{
+                name:"Sweden",
+                name_vn:"Sweden",
+                code:"Sweden",
+                case: 1,
+                death: 0,
+            }
+            ]
+        },{
             date:"2020-01-31",
             world: {
-                case: 9929,
+                case: 9826,
                 death: 213,
             },
             tranmission_rate_min: 2.0,
@@ -40,36 +352,29 @@ const NCOV_DATA = {
                 name:"China",
                 name_vn:"China",
                 code:"cn",
-                case: 9782,
+                case: 9692,
                 death: 213,
-                suspect: null,
+                suspect: 15238,
                 isolate: null,
                 curve: null
             },{
                 name:"Thailand",
                 name_vn:"Thailand",
                 code:"thai",
-                case: 19,
+                case: 14,
                 death: 3,
             },{
                 name:"Singapore",
                 name_vn:"Singapore",
                 code:"sg",
-                case: 16,
+                case: 13,
                 death: 2,
             },{
                 name:"Japan",
                 name_vn:"Japan",
                 code:"jp",
-                case: 15,
+                case: 14,
                 death: 2,
-
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 12,
-                death: 3,
 
             },{
                 name:"South Korea",
@@ -79,11 +384,25 @@ const NCOV_DATA = {
                 death: 5,
 
             },{
+                name:"Hong Kong",
+                name_vn:"Hong Kong",
+                code:"hk",
+                case: 12,
+                death: 3,
+
+            },{
                 name:"Taiwan",
                 name_vn:"Taiwan",
                 code:"tw",
                 case: 9,
                 death: 6,
+
+            },{
+                name:"Macao",
+                name_vn:"Macao",
+                code:"Macao",
+                case: 7,
+                death: 0,
 
             },{
                 name:"Australia",
@@ -97,13 +416,6 @@ const NCOV_DATA = {
                 name_vn:"Malaysia",
                 code:"ma",
                 case: 8,
-                death: 0,
-
-            },{
-                name:"Macao",
-                name_vn:"Macao",
-                code:"Macao",
-                case: 7,
                 death: 0,
 
             },{
@@ -153,20 +465,6 @@ const NCOV_DATA = {
                 name:"Italy",
                 name_vn:"Italy",
                 code:"Italy",
-                case: 2,
-                death: 0,
-
-            },{
-                name:"United Kingdom",
-                name_vn:"United Kingdom",
-                code:"uk",
-                case: 2,
-                death: 0,
-
-            },{
-                name:"Russia",
-                name_vn:"Russia",
-                code:"ru",
                 case: 2,
                 death: 0,
 
@@ -1151,14 +1449,15 @@ export default {
         {name:"Xăng"},{name:"Phụ Chi"},{name:"Pháp Lý"},{name:"Bảo Dưỡng"}
     ],
 
-    SERVER_API:"https://yamastack.com/api/",
+    //SERVER_API:"https://yamastack.com/api/",
 
     //SERVER_API:"http://18.140.121.240:3000/api",
-    //SERVER_API:  "http://192.168.1.51:3000/api",
+    SERVER_API:  "http://192.168.1.51:3000/api",
     //SERVER_API:  "http://192.168.0.108:3000/api",
     //SERVER_API:  "http://localhost:3000/api", // why localhost here (not OK when on LAN setting of Expo)
     //SERVER_API:  "http://172.20.10.2:3000/api",
-    COLOR_SCALE_10: ["#1890FF","#ff7f0e","#98df8a","#9467bd","#17becf","#ffbb78","#aec7e8","#e377c2","#c49c94","#dbdb8d"],
+    //COLOR_SCALE_10: ["#575fcf","#DB4437","#3c40c6","#ff7f0e","#ffbb78","#98df8a","#9467bd","#17becf","#aec7e8","#e377c2","#c49c94","#dbdb8d"],
+    COLOR_SCALE_10: ["#575fcf","#ff7f0e","#DB4437","#3c40c6","#ff7f0e","#ffbb78","#98df8a","#9467bd","#17becf","#aec7e8","#e377c2","#c49c94","#dbdb8d"],
     COLOR_PICKER_TEXT: "#1565c0",//"#1f77b4",
 
     COLOR_GREY_DARK: "rgb(80, 80, 80)",
@@ -1167,13 +1466,13 @@ export default {
     COLOR_GREY_MIDDLE_LIGHT_BG: "rgb(220, 220, 220)",
     COLOR_GREY_LIGHT_BG: "rgb(240, 240, 240)",
 
-    COLOR_HEADER_BG: "#1565c0", // MainThemeColor
+    COLOR_HEADER_BG: "#575fcf",// "#1565c0", // MainThemeColor
     COLOR_HEADER_BG_LIGHT: "#4093db",//"#5e92f3", 
     COLOR_HEADER_BG_LIGHT_SUPER: "#b5e6ff",
     COLOR_HEADER_BG_DARKER: "#003c8f",
     COLOR_HEADER_BUTTON: "white",
 
-    COLOR_BUTTON_BG: "#1565c0", // Main Theme color 3488d1
+    COLOR_BUTTON_BG: "#8c198b", // Main Theme color 3488d1
     COLOR_FACEBOOK: "#3b5998", // FB color
     COLOR_GOOGLE: "#DB4437",
     COLOR_TOMATO:"#ff7f0e",

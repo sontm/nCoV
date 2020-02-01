@@ -307,16 +307,36 @@ export default {
     TOAST_SEND_CUSTOMERVOICE_OK: "Rất cảm ơn nhận xét của bạn, chúng tôi sẽ tiếp thu và xử lý ngay khi có thể.",
 
 
+    NHOME_HEADER: "nCoV Live Stats",
     NHOME_GENERAL_WORLD:"Thế Giới",
-    NHOME_GENERAL_CHINA:"Trung Quốc",
+    NHOME_GENERAL_CHINA:"Trung Quốc Đại Lục",
+    NHOME_GENERAL_VIETNAM:"Vietnam",
+    NHOME_GENERAL_OTHER_COUNTRY:"Ngoài Trung Quốc",
+    NHOME_GENERAL_HUBEI:"Hubei",
+    NHOME_GENERAL_MORE:"Chi Tiết",
 
     NHOME_HEADER_TOTAL_CASE_BYTIME:"Tổng Số Ca Nhiễm Bệnh",
     NHOME_HEADER_TOTAL_DEATH_BYTIME:"Tổng Số Ca Tử Vong",
-    NHOME_HEADER_COUNTRIES_BAR:"Quốc Gia có Ca Nhiễm Bệnh",
+    NHOME_HEADER_COUNTRIES_BAR:"Quốc Gia Nhiễm Bệnh Ngoài Trung Quốc",
+    NHOME_HEADER_CASE_PIE:"Phân Bố Số Ca Nhiễm Bệnh",
+    NHOME_HEADER_CHINA_PROVINCES:"Các Tỉnh Trung Quốc (ngoài Hồ Bắc)",
+    NHOME_HEADER_VIETNAM_PROVINCES:"Các Tỉnh Việt Nam",
+    NHOME_HEADER_VIETNAM_INFO_HEALTH:"Thông Tin từ Bộ Y Tế",
 
     NHOME_GENERAL_PREV_DAY: "Ngày Trước",
 
     NHOME_CASE_CONFIRMED: "Nhiễm Bệnh",
     NHOME_CASE_DEATH: "Tử Vong",
+    NHOME_CASE_SUSPECT: "Nghi Ngờ",
+    NHOME_CASE_ISOLATE: "Cách Ly",
     NHOME_CASE_CURVED: "Chữa Khỏi",
+
+    NHOME_TRANS_RATE: "TRANSMISSION RATE",
+    NHOME_FATAL_RATE: "FATALITY RATE",
+    NHOME_INCU_PERIOD: "INCUBATION PERIOD",
+    NHOME_COUNTRIES: "COUNTRIES AND TERRITORIES",
+    NHOME_TRANS_RATE_NOTE: " newly infected from 1 case",
+    NHOME_FATAL_RATE_NOTE: " deaths for every 100 cases",
+    NHOME_INCU_PERIOD_NOTE: " days without symptoms",
+    NHOME_COUNTRIES_NOTE: "",
 };

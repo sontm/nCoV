@@ -15,8 +15,8 @@ import AppUtils from '../constants/AppUtils'
 import AppConstants from '../constants/AppConstants';
 import AppLocales from '../constants/i18n';
 
-import {Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem, Thumbnail , Badge} from 'native-base';
-import {VictoryLabel, VictoryPie, VictoryBar, VictoryChart, VictoryStack, VictoryArea, VictoryLine, VictoryAxis} from 'victory-native';
+import {Container, Header, Title, Subtitle, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem, Thumbnail , Badge} from 'native-base';
+import {VictoryLabel, VictoryPie, VictoryBar, VictoryContainer, VictoryLegend, VictoryArea, VictoryLine, VictoryAxis} from 'victory-native';
 import { HeaderText, WhiteText } from '../components/StyledText';
 import {
   LineChart
@@ -44,184 +44,57 @@ class HomeScreen extends React.Component {
     };
 
   }
-  componentWillMount() {
-    AppUtils.CONSOLE_LOG("HOME Mounting...")
-    // if (!this.props.appData.isDebugMode) {
-    //   AppConstants.IS_DEBUG_MODE = false;
-    // }
-
-    backend.getPromoteImageLink(
-      response => {
-        AppUtils.CONSOLE_LOG("PR Image ")
-        AppUtils.CONSOLE_LOG(response.data)
-        if (response.data && response.data.imgUrl) {
-          this.setState({
-            showPRModal:true,
-            linkUrl: response.data.linkUrl,
-            imgUrl: response.data.imgUrl
-          })
-        }
-      },
-      err => {
-        AppUtils.CONSOLE_LOG("****Cannot Get PR:")
-        AppUtils.CONSOLE_LOG(err)
-      }
-    )
-  }
-  componentDidMount() {
-    AppUtils.CONSOLE_LOG("HOMESCreen DidMount, CountOpen:" + this.props.appData.countOpen)
-    //this.loadFromStorage()
-    // Load Notification messages
-    this.props.actUserGetNotifications(this.props.userData)
-  }
-
-  componentDidUpdate() {
-    AppUtils.CONSOLE_LOG("HOMESCreen DIDUpdate:"+this.props.userData.modifiedInfo.changedItemCount)
-    // Sync Some Data to Server if Edit Count >=3
-    if (this.props.userData.isLogined) {
-      // Try to Sync with Any New Data
-      if (this.props.userData.modifiedInfo && this.props.userData.modifiedInfo.changedItemCount > 0) {
-        if (this.props.appData.countOpen < 10) {
-          // SYnc every 3 time
-          if (this.props.userData.modifiedInfo.changedItemCount >= 3) {
-            // RUn method after 7s so that Newest Data is Re-Updated
-            setTimeout(() => AppUtils.syncDataPartlyToServer(this.props), 7000)
-            //AppUtils.syncDataPartlyToServer(this.props)
-          }
-        } else {
-          // sync every 1 time
-          setTimeout(() => AppUtils.syncDataPartlyToServer(this.props), 7000)
-          //AppUtils.syncDataPartlyToServer(this.props)
-        }
-      }
-    }
-  }
-  componentWillReceiveProps(nextProps) {
-    AppUtils.CONSOLE_LOG("HOMESCreen WillReceiveProps")
-  }
-  componentWillUnmount() {
-    AppUtils.CONSOLE_LOG("HOMESCreen Will UnMount")
-    // Get Promoted URL Here
-  }
-  calculateAllVehicleTotalMoney() {
-    let totalMoneyPrivate = 0;
-    let totalMoneyPrivateThisMonth = 0;
-    let totalMoneyPrivatePrevMonth = 0;
-    let today = new Date();
-    var CALCULATE_END_THIS_MONTH = AppUtils.normalizeFillDate(
-      new Date(today.getFullYear(),today.getMonth()+1,0));
-    var CALCULATE_START_THIS_MONTH = AppUtils.normalizeDateBegin(new Date(CALCULATE_END_THIS_MONTH.getFullYear(), 
-      CALCULATE_END_THIS_MONTH.getMonth(), 1));
-    var CALCULATE_START_PREV_MONTH = AppUtils.normalizeDateBegin(new Date(CALCULATE_END_THIS_MONTH.getFullYear(), 
-      CALCULATE_END_THIS_MONTH.getMonth() - 1, 1));
-
-    // TODO Improve Perf this ??
-    this.props.userData.vehicleList.forEach(element => {
-      if (this.props.userData.carReports && this.props.userData.carReports[element.id]) {
-        let {arrTotalMoneySpend, totalMoneySpend} = this.props.userData.carReports[element.id].moneyReport;
-        arrTotalMoneySpend.forEach(item => {
-          let xDate = new Date(item.x);
-          if (xDate >= CALCULATE_START_THIS_MONTH && xDate <= CALCULATE_END_THIS_MONTH) {
-            totalMoneyPrivateThisMonth += item.y;
-          }
-          if (xDate >= CALCULATE_START_PREV_MONTH && xDate < CALCULATE_START_THIS_MONTH) {
-            totalMoneyPrivatePrevMonth += item.y;
-          }
-        })
-        totalMoneyPrivate += totalMoneySpend;
-      }
-    });
-    return {totalMoneyPrivate, totalMoneyPrivateThisMonth, totalMoneyPrivatePrevMonth};
-  }
-  calculateAllVehicleTotalMoneyTeam() {
-    let totalMoneyTeam = 0;
-    let totalMoneyTeamThisMonth = 0;
-    let totalMoneyTeamPrevMonth = 0;
-
-    let today = new Date();
-    var CALCULATE_END_THIS_MONTH = AppUtils.normalizeFillDate(
-      new Date(today.getFullYear(),today.getMonth()+1,0));
-    var CALCULATE_START_THIS_MONTH = AppUtils.normalizeDateBegin(new Date(CALCULATE_END_THIS_MONTH.getFullYear(), 
-      CALCULATE_END_THIS_MONTH.getMonth(), 1));
-    var CALCULATE_START_PREV_MONTH = AppUtils.normalizeDateBegin(new Date(CALCULATE_END_THIS_MONTH.getFullYear(), 
-      CALCULATE_END_THIS_MONTH.getMonth() - 1, 1));
-    this.props.teamData.teamCarList.forEach(element => {
-      if (this.props.teamData.teamCarReports && this.props.teamData.teamCarReports[element.id]) {
-        let {arrTotalMoneySpend, totalMoneySpend} = this.props.teamData.teamCarReports[element.id].moneyReport;
-        
-        arrTotalMoneySpend.forEach(item => {
-          let xDate = new Date(item.x);
-          if (xDate >= CALCULATE_START_THIS_MONTH && xDate <= CALCULATE_END_THIS_MONTH) {
-            totalMoneyTeamThisMonth += item.y;
-          }
-          if (xDate >= CALCULATE_START_PREV_MONTH && xDate < CALCULATE_START_THIS_MONTH) {
-            totalMoneyTeamPrevMonth += item.y;
-          }
-        })
-
-        totalMoneyTeam += totalMoneySpend;
-      }
-    });
-
-    return {totalMoneyTeam, totalMoneyTeamThisMonth, totalMoneyTeamPrevMonth};
-  }
-  onClosePRModal() {
-    AppUtils.CONSOLE_LOG("Calling onForceCloseModalByPressBack..........")
-    this.setState({showPRModal: false})
-  }
-  onClickPRModal() {
-    if(this.state.linkUrl && this.state.linkUrl.length > 0) {
-      Linking.canOpenURL(this.state.linkUrl).then(supported => {
-        if (supported) {
-          Linking.openURL(this.state.linkUrl);
-          this.setState({showPRModal: false})
-        } else {
-          AppUtils.CONSOLE_LOG("Don't know how to open URI: " + this.state.linkUrl);
-        }
-      });
-    }
-  }
 
   render() {
     AppUtils.CONSOLE_LOG("HOMESCreen Render")
-    let isUserHasTeam = true;
 
-    let {totalMoneyPrivate, totalMoneyPrivateThisMonth, totalMoneyPrivatePrevMonth} = this.calculateAllVehicleTotalMoney();
-    if (isUserHasTeam) {
-      var {totalMoneyTeam, totalMoneyTeamThisMonth, totalMoneyTeamPrevMonth} = this.calculateAllVehicleTotalMoneyTeam();
-    }
-    if (totalMoneyPrivateThisMonth > totalMoneyPrivatePrevMonth) {
-      var iconInfoUsage= (
-        <Icon type="Entypo" name="arrow-up" 
-            style={{color: AppConstants.COLOR_GOOGLE, marginLeft: 0, fontSize: 15, width: 15}} />
-      )
-    } else if (totalMoneyPrivateThisMonth < totalMoneyPrivatePrevMonth) {
-      var iconInfoUsage= (
-        <Icon type="Entypo" name="arrow-down" 
-            style={{color: AppConstants.COLOR_D3_DARK_GREEN, marginLeft: 0, fontSize: 15, width: 15}} />
-      )
+    let theData = this.props.appData.ncov;
+
+    let totalCaseWorld = theData.data[0].world.case;
+    let totalCaseChina = theData.data[0].countries[0].case;
+
+    let vietnamData = null;
+    let vietnamDataPre = null;
+    let foundLatestVN = false;
+    let isFinish = false;
+    if (theData.data && theData.data.length > 0 && theData.data[0].countries) {
+      var latestDate = new Date(theData.data[0].date);
+      for (let c = 0; c < theData.data.length; c++) {
+
+        for (let i = 0; i < theData.data[c].countries.length; i++) {
+          let theCountry = theData.data[c].countries[i];
+          if (theCountry.name.toLowerCase() == "vietnam" || theCountry.name.toLowerCase() == "viet nam") {
+            if (!foundLatestVN) {
+              vietnamData = theCountry;
+              vietnamDataPre = theCountry;
+              foundLatestVN = true;
+            } else {
+              vietnamDataPre = theCountry;
+              isFinish = true;
+              break;
+            }
+          }
+        }
+        if (isFinish) {
+          break;
+        }
+      }
     }
     
-
     return (
       <Container>
         <Header style={{backgroundColor: AppConstants.COLOR_HEADER_BG, marginTop:-AppConstants.DEFAULT_IOS_STATUSBAR_HEIGHT}}>
           <Left style={{flex:1}}>
-            <Button badge transparent onPress={() => this.props.navigation.toggleDrawer()}>
+            {/* <Button badge transparent onPress={() => this.props.navigation.toggleDrawer()}>
               <Icon name="menu" style={{color: "white", fontSize: 24}} />
-            </Button>
+            </Button> */}
           </Left>
           <Body style={{flex: 5, alignItems: "center"}}>
-            <Title><HeaderText>{AppLocales.t("HOME_HEADER")}</HeaderText></Title>
+            <Title><HeaderText style={{fontSize: 30}}>{AppLocales.t("NHOME_HEADER")}</HeaderText></Title>
+            {latestDate ? 
+            <Subtitle><HeaderText>{latestDate.toGMTString()}</HeaderText></Subtitle> : null}
           </Body>
           <Right  style={{flex:1}}>
-            <Button badge transparent onPress={() => this.props.navigation.navigate("Notification")}>
-              <Icon name="notifications" style={{color: "white", fontSize: 24}} />
-              {this.props.userData.countNotSeenNoti > 0 ?
-              <Badge danger style={styles.notifyBadge}>
-                <Text style={styles.notifyBadgeText}>{this.props.userData.countNotSeenNoti}</Text>
-              </Badge> : null}
-            </Button>
           </Right>
         </Header>
        
@@ -236,41 +109,47 @@ class HomeScreen extends React.Component {
 
             <View style={styles.statRow}>
               <View style={styles.equalStartRowSingle}>
-                <Text style={{alignSelf: "center", fontSize: 22, marginBottom: 5}}>
-                  {AppLocales.t("NHOME_GENERAL_WORLD")}
-                </Text>
+                <View style={{flexDirection:"row", justifyContent:"center",alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 28, marginBottom: 5}}>
+                    {AppLocales.t("NHOME_GENERAL_WORLD")}
+                  </Text>
+                  <Image
+                    source={require('../assets/images/flag/world.png')}
+                    style={{width: 22,height: 22, alignSelf:"flex-start", marginLeft: 5, marginTop: 3}}
+                  />
+                </View>
+                
                 
                 <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center"}}>
                 <View style={{alignItems: "center"}}>
-                  <Text style={{alignSelf: "center", fontSize: 12, 
-                    color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
                   {AppLocales.t("NHOME_CASE_CONFIRMED")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
-                      {(AppConstants.NCOV_DATA.data[0].world.case)}</Text>
-                    {iconInfoUsage}
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 38}}>
+                      {(theData.data[0].world.case)}</Text>
+  
                   </View>
-                  <Text style={{marginTop: 10, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
-                      {"+ " + (AppConstants.NCOV_DATA.data[0].world.case - AppConstants.NCOV_DATA.data[1].world.case)}</Text>
-                  <Text style={{alignSelf: "center", fontSize: 14,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {AppUtils.formatValueWithSign(theData.data[0].world.case - theData.data[1].world.case)}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
                     {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
                   </Text>
                 </View>
 
                 <View style={{alignItems: "center"}}>
-                  <Text style={{alignSelf: "center", fontSize: 12, 
-                    color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
                   {AppLocales.t("NHOME_CASE_DEATH")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
-                      {(AppConstants.NCOV_DATA.data[0].world.death)}</Text>
-                    {iconInfoUsage}
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                      {(theData.data[0].world.death)}</Text>
                   </View>
-                  <Text style={{marginTop: 10, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
-                      {"+ " + (AppConstants.NCOV_DATA.data[0].world.death - AppConstants.NCOV_DATA.data[1].world.death)}</Text>
-                  <Text style={{alignSelf: "center", fontSize: 14,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {AppUtils.formatValueWithSign(theData.data[0].world.death - theData.data[1].world.death)}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
                     {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
                   </Text>
                 </View>
@@ -282,52 +161,325 @@ class HomeScreen extends React.Component {
 
             <View style={styles.statRow}>
               <View style={styles.equalStartRowNormal}>
-                <Text style={{alignSelf: "center", fontSize: 22, marginBottom: 5}}>
-                  {AppLocales.t("NHOME_GENERAL_CHINA")}
-                </Text>
+                <View style={{flexDirection:"row", justifyContent:"center",alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 22, marginBottom: 5}}>
+                    {AppLocales.t("NHOME_GENERAL_CHINA")}
+                  </Text>
+                  <Image
+                    source={require('../assets/images/flag/china.png')}
+                    style={{width: 20,height: 20, alignSelf:"flex-start", marginLeft: 5, marginTop: 0}}
+                  />
+                </View>
                 
                 <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center"}}>
                 <View style={{alignItems: "center"}}>
-                  <Text style={{alignSelf: "center", fontSize: 12, 
-                    color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
                   {AppLocales.t("NHOME_CASE_CONFIRMED")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
                     <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
-                      {(AppConstants.NCOV_DATA.data[0].countries[0].case)}</Text>
-                    {iconInfoUsage}
+                      {(theData.data[0].countries[0].case)}</Text>
                   </View>
-                  <Text style={{marginTop: 10, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
-                      {"+ " + (AppConstants.NCOV_DATA.data[0].countries[0].case - AppConstants.NCOV_DATA.data[1].countries[0].case)}</Text>
-                  <Text style={{alignSelf: "center", fontSize: 14,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {"+ " + (theData.data[0].countries[0].case - theData.data[1].countries[0].case)}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
                     {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
                   </Text>
                 </View>
 
                 <View style={{alignItems: "center"}}>
-                  <Text style={{alignSelf: "center", fontSize: 12, 
-                    color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
                   {AppLocales.t("NHOME_CASE_DEATH")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
-                      {(AppConstants.NCOV_DATA.data[0].countries[0].death)}</Text>
-                    {iconInfoUsage}
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                      {(theData.data[0].countries[0].death)}</Text>
                   </View>
-                  <Text style={{marginTop: 10, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
-                      {"+ " + (AppConstants.NCOV_DATA.data[0].countries[0].death - AppConstants.NCOV_DATA.data[1].countries[0].death)}</Text>
-                  <Text style={{alignSelf: "center", fontSize: 14,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {"+ " + (theData.data[0].countries[0].death - theData.data[1].countries[0].death)}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
                     {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
                   </Text>
                 </View>
                 </View>
+
+                <Button
+                      rounded small style={{flexDirection:"row", backgroundColor: AppConstants.COLOR_HEADER_BG,
+                        width:100, justifyContent:"center", alignSelf:"center", alignItems:"center", marginTop: 10}}
+                        onPress={() => this.props.navigation.navigate("ChinaScreen")}>
+                    <Text style={{fontSize:15, alignSelf:"center"}}>{AppLocales.t("NHOME_GENERAL_MORE")}</Text>
+                    <Icon name="arrow-forward" style={{width: 16,fontSize: 16, color: "rgb(240,240,240)", marginLeft: -10}}/>
+                  </Button>
               </View>
             </View>
 
 
-          <HomeTotalCasesByTime />
 
-          <CountryCaseDeathBar />
+            <View style={styles.statRow}>
+              <View style={styles.equalStartRowNormal}>
+                <Text style={{alignSelf: "center", fontSize: 22, marginBottom: 5}}>
+                  {AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")}
+                </Text>
+                
+                <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center"}}>
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_CONFIRMED")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {(theData.data[0].world.case - 
+                        theData.data[0].countries[0].case)}</Text>
+                  </View>
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {"+ " + ((theData.data[0].world.case - 
+                        theData.data[0].countries[0].case) - 
+                        (theData.data[1].world.case - 
+                          theData.data[1].countries[0].case))}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
+                  </Text>
+                </View>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_DEATH")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                      {(theData.data[0].world.death - 
+                        theData.data[0].countries[0].death)}</Text>
+                  </View>
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {"+ " + ((theData.data[0].world.death - 
+                        theData.data[0].countries[0].death) - 
+                        (theData.data[1].world.death - 
+                          theData.data[1].countries[0].death))}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
+                  </Text>
+                </View>
+                </View>
+
+                <Button
+                      rounded small style={{flexDirection:"row", backgroundColor: AppConstants.COLOR_HEADER_BG,
+                        width:100, justifyContent:"center", alignSelf:"center", alignItems:"center", marginTop: 10}}
+                      onPress={() => this.props.navigation.navigate("OutsideChinaScreen")}>
+                    <Text style={{fontSize:15, alignSelf:"center"}}>{AppLocales.t("NHOME_GENERAL_MORE")}</Text>
+                    <Icon name="arrow-forward" style={{width: 16,fontSize: 16, color: "rgb(240,240,240)", marginLeft: -10}}/>
+                  </Button>
+              </View>
+            </View>
+
+
+            {vietnamData? 
+            <View style={styles.statRow}>
+              <View style={styles.equalStartRowNormal}>
+                <View style={{flexDirection:"row", justifyContent:"center",alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 22, marginBottom: 5}}>
+                    {AppLocales.t("NHOME_GENERAL_VIETNAM")}
+                  </Text>
+                  <Image
+                    source={require('../assets/images/flag/vietnam.png')}
+                    style={{width: 20,height: 20, alignSelf:"flex-start", marginLeft: 5, marginTop: 0}}
+                  />
+                </View>
+
+
+                <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center", marginTop: 3}}>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_CONFIRMED_VN")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {vietnamData.case}</Text>
+                  </View>
+
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {AppUtils.formatValueWithSign((vietnamData.case - vietnamDataPre.case))}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
+                  </Text>
+                 
+                </View>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_DEATH_VN")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                      {(vietnamData.death)}</Text>
+                  </View>
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {AppUtils.formatValueWithSign(vietnamData.death - vietnamDataPre.death)}</Text>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
+                  </Text>
+                </View>
+
+                </View>
+
+
+                <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center", marginTop: 13}}>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_SUSPECT_VN")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {vietnamData.suspect}</Text>
+                  </View>
+                </View>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_ISOLATE_VN")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {(vietnamData.isolate)}</Text>
+                  </View>
+                </View>
+
+                </View>
+
+                <Button
+                      rounded small style={{flexDirection:"row", backgroundColor: AppConstants.COLOR_HEADER_BG,
+                        width:100, justifyContent:"center", alignSelf:"center", alignItems:"center", marginTop: 10}}
+                      onPress={() => this.props.navigation.navigate("VietnamScreen")}>
+                    <Text style={{fontSize:15, alignSelf:"center"}}>{AppLocales.t("NHOME_GENERAL_MORE")}</Text>
+                    <Icon name="arrow-forward" style={{width: 16,fontSize: 16, color: "rgb(240,240,240)", marginLeft: -10}}/>
+                  </Button>
+
+              </View>
+            </View> : null}
+
+
+
+            <View style={styles.statRow}>
+              <View style={styles.equalStartRowNormal}>
+                <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center", marginTop: 3}}>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_TRANS_RATE")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {(theData.data[0].tranmission_rate_min)+" - " + 
+                      theData.data[0].tranmission_rate_max}</Text>
+                  </View>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO, fontStyle:"italic"}}>
+                    {AppLocales.t("NHOME_TRANS_RATE_NOTE")}
+                  </Text>
+                </View>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_FATAL_RATE")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {(theData.data[0].fatality_rate)+"%"}</Text>
+                  </View>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO, fontStyle:"italic"}}>
+                    {AppLocales.t("NHOME_FATAL_RATE_NOTE")}
+                  </Text>
+                </View>
+
+                </View>
+
+
+                <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center", marginTop: 13}}>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_INCU_PERIOD")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {(theData.data[0].incubation_period_min)+" - " + 
+                      theData.data[0].incubation_period_max}</Text>
+                  </View>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO, fontStyle:"italic"}}>
+                    {AppLocales.t("NHOME_INCU_PERIOD_NOTE")}
+                  </Text>
+                </View>
+
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 15, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_COUNTRIES")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {(theData.data[0].countries.length)}</Text>
+                  </View>
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO, fontStyle:"italic"}}>
+                    {AppLocales.t("NHOME_COUNTRIES_NOTE")}
+                  </Text>
+                </View>
+
+                </View>
+
+              </View>
+            </View>
+
+
+            <View style={styles.moneyUsagePieContainer}>
+                <Text style={{alignSelf: "center", fontSize: 20, marginBottom: 10}}>
+                  {AppLocales.t("NHOME_HEADER_CASE_PIE")}
+                </Text>
+
+                <View style={{justifyContent: "center",alignItems: "center",alignSelf: "center", height: 250}}>
+                <VictoryPie
+                    colorScale={AppConstants.COLOR_SCALE_10}
+                    data={[{x:AppLocales.t("NHOME_GENERAL_CHINA"), y: totalCaseChina},
+                      {x:AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY"), y: totalCaseWorld-totalCaseChina}]}
+                    //innerRadius={80}
+                    radius={90}
+                    labels={({ datum }) => (datum&&datum.y > 0) ? (
+                        (datum.y) + "\n"
+                        +"("+AppUtils.formatToPercent(datum.y, totalCaseWorld)+")") : ""}
+                    labelRadius={({ radius }) => radius + 10 }
+                    labelComponent={<VictoryLabel style={{fontSize: 12}}/>}
+                    />
+                </View>
+
+                <View style={{marginTop: 5, marginLeft: 10}}>
+                    <VictoryContainer
+                        width={Layout.window.width}
+                        height={20}
+                    >
+                    <VictoryLegend standalone={false}
+                        x={15} y={5}
+                        itemsPerRow={4}
+                        colorScale={AppConstants.COLOR_SCALE_10}
+                        orientation="horizontal"
+                        gutter={5}
+                        symbolSpacer={5}
+                        labelComponent={<VictoryLabel style={{fontSize: 12}}/>}
+                        data={[{name:AppLocales.t("NHOME_GENERAL_CHINA")},{name:AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")}]}
+                    />
+                    </VictoryContainer>
+                </View>
+            </View>
+          <HomeTotalCasesByTime />
 
           </ScrollView>
         </Content>
@@ -455,6 +607,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
   },
+  moneyUsagePieContainer: {
+    width: Layout.window.width-20,
+    marginLeft: 10,
+    marginRight: 10,
+    //height: 250,
+
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 10,
+
+    paddingBottom: 10,
+    paddingTop: 10,
+
+    borderRadius: 10,
+    borderColor: "rgb(220, 220, 220)",
+    borderWidth: 1,
+
+    backgroundColor:"white",
+
+    shadowColor: "#777777",
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    shadowOffset: {
+        height: 3,
+        width: 1
+    },
+},
+
   gasUsageContainer: {
     width: "96%",
     height: 350,

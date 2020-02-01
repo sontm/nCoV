@@ -7,7 +7,6 @@ import Constants from 'expo-constants';
 import AppConstants from '../constants/AppConstants';
 import apputils from '../constants/AppUtils';
 import {actAppSyncLatestDataIfNeeded} from '../redux/AppDataReducer'
-import {actUserInitializeInitialDataWhenAppStart} from '../redux/UserReducer'
 
 class CheckLatestAppDataManager extends React.Component {
   constructor(props) {
@@ -16,7 +15,6 @@ class CheckLatestAppDataManager extends React.Component {
   }
   
   componentWillMount() {
-    this.props.actUserInitializeInitialDataWhenAppStart()
     this.props.actAppSyncLatestDataIfNeeded(this.props.appData);
   }
 
@@ -29,8 +27,7 @@ const mapStateToProps = (state) => ({
   appData: state.appData
 });
 const mapActionsToProps = {
-  actAppSyncLatestDataIfNeeded,
-  actUserInitializeInitialDataWhenAppStart
+  actAppSyncLatestDataIfNeeded
 };
   
 export default connect(

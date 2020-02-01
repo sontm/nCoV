@@ -215,8 +215,15 @@ class AppUtils {
             return (v/1000).toFixed(0) + "N";
         }
     }
+    formatValueWithSign(val) {
+        if (val >= 0) {
+            return "+"+val;
+        } else {
+            return ""+val;
+        }
+    }
     formatToPercent(v, total) {
-        return (v*100/total).toFixed(0) + "%";
+        return (v*100/total).toFixed(1) + "%";
     }
 
     getNameOfFillItemType(type, isContantFix, item) {

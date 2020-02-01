@@ -7,7 +7,7 @@ import Layout from '../constants/Layout'
 
 import AppUtils from '../constants/AppUtils'
 import AppConstants from '../constants/AppConstants';
-import {VictoryLabel, VictoryScatter, VictoryBar, VictoryChart, VictoryStack, VictoryArea, VictoryLine, VictoryAxis} from 'victory-native';
+import {VictoryLabel, VictoryScatter, VictoryGroup, VictoryChart, VictoryStack, VictoryArea, VictoryLine, VictoryAxis} from 'victory-native';
 
 import { connect } from 'react-redux';
 import AppLocales from '../constants/i18n'
@@ -17,7 +17,7 @@ class HomeTotalCasesByTime extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+        country:AppLocales.t("NHOME_GENERAL_WORLD")
     };
   }
 
@@ -36,32 +36,118 @@ class HomeTotalCasesByTime extends React.Component {
     let caseArr = [];
     let deathArr = [];
     let tickXLabels = [];
+    console.log("this.state.country----------")
+    console.log(this.state.country)
+    if (this.state.country == AppLocales.t("NHOME_GENERAL_WORLD")) {
+        if (inputData && inputData.data && inputData.data.length > 0) {
+            inputData.data.forEach( item => {
+                let xDate = new Date(item.date)
+                AppUtils.pushInDateLabelsIfNotExist(tickXLabels, xDate)
 
-    if (inputData && inputData.data && inputData.data.length > 0) {
-        inputData.data.forEach( item => {
-            let xDate = new Date(item.date)
-            AppUtils.pushInDateLabelsIfNotExist(tickXLabels, xDate)
+                caseArr.push({x: xDate, y: item.world.case})
+                deathArr.push({x: xDate, y: item.world.death})
+            })
+        }
+    } else if (this.state.country == AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")) {
+        // Other Country than China Mainland
+        if (inputData && inputData.data && inputData.data.length > 0) {
+            inputData.data.forEach( item => {
+                let xDate = new Date(item.date)
+                AppUtils.pushInDateLabelsIfNotExist(tickXLabels, xDate)
 
-            caseArr.push({x: xDate, y: item.world.case})
-            deathArr.push({x: xDate, y: item.world.death})
-        })
+                let caseNo = item.world.case;
+                let deathNo = item.world.death;
+                if (item.countries.length > 0) {
+                    caseArr.push({x: xDate, y: item.world.case - item.countries[0].case})
+                    deathArr.push({x: xDate, y: item.world.death - item.countries[0].death})
+                }
+                
+            })
+        }
+    } else {
+        // Specific Country
+        if (inputData && inputData.data && inputData.data.length > 0) {
+            inputData.data.forEach( item => {
+                let xDate = new Date(item.date)
+                AppUtils.pushInDateLabelsIfNotExist(tickXLabels, xDate)
+
+                let isExist = false;
+                if (item.countries.length > 0) {
+                    for(let i = 0; i < item.countries.length; i++) {
+                        let theCountry = item.countries[i]
+                        if (theCountry.name == this.state.country) {
+                            caseArr.push({x: xDate, y: theCountry.case})
+                            deathArr.push({x: xDate, y: theCountry.death})
+                            isExist = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!isExist) {
+                    caseArr.push({x: xDate, y: 0})
+                    deathArr.push({x: xDate, y: 0})
+                }
+
+                
+            })
+        }
     }
 
     return {caseArr, deathArr, tickXLabels};
   }
+  renderDropdownItemCountry(inputData) {
+    var dropdownView = [];
+    dropdownView.push(
+        <Picker.Item label={"--"+AppLocales.t("NHOME_GENERAL_WORLD")+"--"} value={AppLocales.t("NHOME_GENERAL_WORLD")} key={AppLocales.t("NHOME_GENERAL_WORLD")}/>
+    )
+    dropdownView.push(
+        <Picker.Item label={"--"+AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")+"--"} value={AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")} 
+            key={AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")}/>
+    )
+
+    if (inputData.data && inputData.data.length > 0 && inputData.data[0].countries) {
+        inputData.data[0].countries.forEach(item => {
+            dropdownView.push (
+                <Picker.Item label={item.name} value={item.name} key={item.name}/>
+            )
+        })
+    }
+    
+    return dropdownView;
+  }
   render() {
         // Tong Quan of Current User
         var {caseArr, deathArr, tickXLabels} 
-            = this.parseWorldCurrimulative(AppConstants.NCOV_DATA);
+            = this.parseWorldCurrimulative(this.props.appData.ncov);
         tickXLabels = AppUtils.reviseTickLabelsToCount(tickXLabels, 9);
 
         // If Area Chart, it need 2 Points to DRAW, otherwise Chart will Error
+        let dropdownView = this.renderDropdownItemCountry(this.props.appData.ncov);
         if (caseArr && caseArr.length > 1) {
+            
             console.log("tickXLabels--------")
             console.log(tickXLabels)
         return (
             <View style={styles.container}>
                 
+                <View style={styles.rowContainerCarSelect}>
+                    <Picker
+                        style={{width: AppConstants.DEFAULT_FORM_WIDTH,
+                            alignSelf:"center"}}
+                        mode="dropdown"
+                        iosIcon={<Icon name="arrow-down" />}
+                        placeholderStyle={{ color: "#bfc6ea", alignSelf:"center" }}
+                        placeholderIconColor="#007aff"
+                        selectedValue={this.state.country}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({country: itemValue})
+                        }
+                    >
+                        {dropdownView}
+                    </Picker>
+                </View>
+
                 <View style={styles.textRow}>
                     <Text><H3>
                         {AppLocales.t("NHOME_HEADER_TOTAL_CASE_BYTIME")}
@@ -73,8 +159,8 @@ class HomeTotalCasesByTime extends React.Component {
                     <View style={styles.moneyUsageStackContainer}>
                         <VictoryChart
                             width={Layout.window.width}
-                            height={300}
-                            padding={{top:10,bottom:30,left:5,right:0}}
+                            height={280}
+                            padding={{top:7,bottom:20,left:5,right:0}}
                             domainPadding={{y: [10, 40], x: [22, 22]}}
                         >
                         <VictoryLine
@@ -83,15 +169,16 @@ class HomeTotalCasesByTime extends React.Component {
                             style={{
                                 data: {
                                     //fill: AppConstants.COLOR_D3_MIDDLE_GREEN, fillOpacity: 0.08, 
-                                    stroke: AppConstants.COLOR_D3_MIDDLE_GREEN, strokeWidth: 1.5
+                                    stroke: AppConstants.COLOR_HEADER_BG, strokeWidth: 1.5
                                 },
                             }}
                             labels={({ datum }) => (datum&&datum.y > 0) ? (datum.y) : ""}
                             labelComponent={<VictoryLabel style={{fontSize: 9}}/>}
                             colorScale={AppConstants.COLOR_SCALE_10}
                         />
+
                         <VictoryScatter
-                            style={{ data: { fill: AppConstants.COLOR_D3_MIDDLE_GREEN } }}
+                            style={{ data: { fill: AppConstants.COLOR_HEADER_BG } }}
                             size={3}
                             data={caseArr}
                         />
@@ -112,7 +199,7 @@ class HomeTotalCasesByTime extends React.Component {
                         <VictoryAxis
                             dependentAxis
                             standalone={false}
-                            tickFormat={(t) => `${(t)}`}
+                            tickFormat={(t) => `${(t>1) ? t : 0}`}
                             // tickCount={arrKmPerWeek ? arrKmPerWeek.length/2 : 1}
                             style={{
                                 // ticks: {stroke: "grey", size: 5},
@@ -137,8 +224,8 @@ class HomeTotalCasesByTime extends React.Component {
                     <View style={styles.moneyUsageStackContainer}>
                         <VictoryChart
                             width={Layout.window.width}
-                            height={300}
-                            padding={{top:10,bottom:30,left:5,right:0}}
+                            height={280}
+                            padding={{top:7,bottom:20,left:5,right:0}}
                             domainPadding={{y: [10, 40], x: [22, 22]}}
                         >
                         <VictoryLine
@@ -147,7 +234,7 @@ class HomeTotalCasesByTime extends React.Component {
                             style={{
                                 data: {
                                     //fill: AppConstants.COLOR_TOMATO, fillOpacity: 0.08, 
-                                    stroke: AppConstants.COLOR_TOMATO, strokeWidth: 1.5
+                                    stroke: AppConstants.COLOR_GOOGLE, strokeWidth: 1.5
                                 },
                             }}
                             labels={({ datum }) => (datum&&datum.y > 0) ? (datum.y) : ""}
@@ -155,7 +242,7 @@ class HomeTotalCasesByTime extends React.Component {
                             colorScale={AppConstants.COLOR_SCALE_10}
                         />
                         <VictoryScatter
-                            style={{ data: { fill: AppConstants.COLOR_TOMATO } }}
+                            style={{ data: { fill: AppConstants.COLOR_GOOGLE } }}
                             size={3}
                             data={deathArr}
                         />
@@ -176,7 +263,7 @@ class HomeTotalCasesByTime extends React.Component {
                         <VictoryAxis
                             dependentAxis
                             standalone={false}
-                            tickFormat={(t) => `${(t)}`}
+                            tickFormat={(t) => `${(t>1) ? t : 0}`}
                             // tickCount={arrKmPerWeek ? arrKmPerWeek.length/2 : 1}
                             style={{
                                 // ticks: {stroke: "grey", size: 5},
@@ -193,13 +280,24 @@ class HomeTotalCasesByTime extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
-                    <View style={styles.textRow}>
-                        <Text><H3>
-                            {AppLocales.t("HOME_PRIVATE_MONEY_USAGE")}
-                        </H3></Text>
-                        
-                    </View>
-                    <NoDataText />
+                    <View style={styles.rowContainerCarSelect}>
+                    <Picker
+                        style={{width: AppConstants.DEFAULT_FORM_WIDTH,
+                            alignSelf:"center"}}
+                        mode="dropdown"
+                        iosIcon={<Icon name="arrow-down" />}
+                        placeholderStyle={{ color: "#bfc6ea", alignSelf:"center" }}
+                        placeholderIconColor="#007aff"
+                        selectedValue={this.state.country}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({country: itemValue})
+                        }
+                    >
+                        {dropdownView}
+                    </Picker>
+                </View>
+
+                <NoDataText />
                 </View>
             )
         }
@@ -210,13 +308,27 @@ const styles = StyleSheet.create({
     container: {
       backgroundColor: "white",
       flexDirection: "column",
-      //borderWidth: 0.5,
-      //borderColor: "grey",
+      borderWidth: 0.5,
+      borderColor: "rgb(220, 220, 220)",
       justifyContent: "space-between",
       marginBottom: 20,
-      //borderRadius: 7,
+      borderRadius: 7,
       paddingBottom: 20,
       marginTop: 10
+    },
+    rowContainerCarSelect: {
+        flexDirection: "row",
+        alignItems: "center", // vertial align
+        justifyContent: "center",
+        width: Layout.window.width-4,
+        marginTop: 2,
+        marginBottom: 5,
+
+        alignSelf:"center",
+        height: 40,
+        borderColor: AppConstants.COLOR_HEADER_BG,
+        borderWidth: 1,
+        borderRadius: 5
     },
 
     segmentContainer: {
@@ -285,13 +397,13 @@ const styles = StyleSheet.create({
     },
 
     moneyUsageStackContainer: {
-        height: 300,
+        height: 280,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
     },
     moneyUsageStackContainerEachCar: {
-        height: 300,
+        height: 280,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
@@ -319,8 +431,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => ({
-    userData: state.userData,
-    teamData: state.teamData
+    appData: state.appData
 });
 const mapActionsToProps = {
 };

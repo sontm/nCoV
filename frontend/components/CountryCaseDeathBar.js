@@ -42,36 +42,70 @@ class CountryCaseDeathBar extends React.Component {
   // Out
   // data:[{x:1|2|3,y}]
   // arrLabelY:["China","Vietnam"]
-  parseCountriesTop(inputData) {
+  parseCountriesTop(inputData, showChinaProvince, showVietnamProvince) {
     let caseArr = [];
     let deathArr = [];
     let arrLabelY = [];
 
-    if (inputData && inputData.data && inputData.data.length > 0 && inputData.data[0].countries) {
-        inputData.data[0].countries.forEach( (item,idx) => {
-            if (idx > 0) {
-            let xDate = new Date(item.date)
-            arrLabelY.push(item.name)
+    if (showVietnamProvince) {
+        if (inputData && inputData.vietnam_province && inputData.vietnam_province.length > 0 && inputData.vietnam_province[0].provinces) {
+            inputData.vietnam_province[0].provinces.forEach( (item,idx) => {
+                arrLabelY.push(item.name)
 
-            caseArr.push({x: idx, y: item.case})
-            deathArr.push({x: idx, y: item.death})
-            }
-        })
+                caseArr.push({x: idx+1, y: item.case})
+                if (item.death) {
+                    deathArr.push({x: idx+1, y: item.death})
+                } else {
+                    deathArr.push({x: idx+1, y: 0})
+                }
+            })
+        }
+    } else
+    if (showChinaProvince) {
+        if (inputData && inputData.china_province && inputData.china_province.length > 0 && inputData.china_province[0].provinces) {
+            inputData.china_province[0].provinces.forEach( (item,idx) => {
+                if (idx > 0) {
+                    arrLabelY.push(item.name)
+
+                    caseArr.push({x: idx, y: item.case})
+                    if (item.death) {
+                        deathArr.push({x: idx, y: item.death})
+                    }
+                }
+            })
+        }
+    } else {
+        // Show Other countries
+        if (inputData && inputData.data && inputData.data.length > 0 && inputData.data[0].countries) {
+            inputData.data[0].countries.forEach( (item,idx) => {
+                if (idx > 0) {
+                let xDate = new Date(item.date)
+                arrLabelY.push(item.name)
+
+                caseArr.push({x: idx, y: item.case})
+                deathArr.push({x: idx, y: item.death})
+                }
+            })
+        }
     }
 
     return {caseArr, deathArr, arrLabelY};
   }
 
   render() {
-    var {caseArr, deathArr, arrLabelY} = this.parseCountriesTop(AppConstants.NCOV_DATA)
+    var {caseArr, deathArr, arrLabelY} = this.parseCountriesTop(this.props.appData.ncov, this.props.showChinaProvince, this.props.showVietnamProvince)
     console.log("arrLabelY BAR------------")
     console.log(arrLabelY)
-
+    let theBarWidth = 7;
+    if (arrLabelY.length < 10) {
+        theBarWidth = 15;
+    }
     return (
         <View style={styles.container}>
             <View style={styles.textRow}>
                 <Text><H3>
-                    {AppLocales.t("NHOME_HEADER_COUNTRIES_BAR")}
+                    {this.props.showChinaProvince ? AppLocales.t("NHOME_HEADER_CHINA_PROVINCES") :
+                    (this.props.showVietnamProvince ? AppLocales.t("NHOME_HEADER_VIETNAM_PROVINCES") : AppLocales.t("NHOME_HEADER_COUNTRIES_BAR"))}
                 </H3></Text>
                     
             </View>
@@ -79,9 +113,9 @@ class CountryCaseDeathBar extends React.Component {
             <View style={styles.gasUsageContainer}>
                 <VictoryChart
                     width={Layout.window.width}
-                    height={arrLabelY.length*20}
-                    padding={{top:25,bottom:40,left:50,right:10}}
-                    domainPadding={{y: [0, 0], x: [50, 20]}}
+                    height={arrLabelY.length*19 < 200 ? 200 :arrLabelY.length*19 }
+                    padding={{top:5,bottom:20,left:70,right:30}}
+                    domainPadding={{y: [0, 0], x: [20, 10]}}
                     colorScale={AppConstants.COLOR_SCALE_10}
                 >
                 <VictoryStack
@@ -93,14 +127,18 @@ class CountryCaseDeathBar extends React.Component {
                     colorScale={AppConstants.COLOR_SCALE_10}
                 > */}
                     <VictoryBar
-                        barWidth={10}
+                        barWidth={theBarWidth}
                         data={caseArr}
                         horizontal
+                        labels={({ datum }) => `${datum.y>0?datum.y:""}`}
+                        labelComponent={<VictoryLabel dx={1} style={{fontSize: 9}}/>}
                     />
                     <VictoryBar
-                        barWidth={10}
+                        barWidth={theBarWidth}
                         data={deathArr}
                         horizontal
+                        labels={({ datum }) => `${datum.y>0?datum.y:""}`}
+                        labelComponent={<VictoryLabel dx={1} style={{fontSize: 9}}/>}
                     />
                 </VictoryStack>
                 <VictoryAxis
@@ -114,7 +152,7 @@ class CountryCaseDeathBar extends React.Component {
                     style={{
                         // grid: {stroke: "rgb(240,240,240)"},
                         //ticks: {stroke: "grey", size: 5},
-                        tickLabels: {fontSize: 9,padding: 0, angle: 0}
+                        tickLabels: {fontSize: 9,padding: 1, angle: 0}
                     }}
                 />
                 <VictoryAxis
@@ -142,12 +180,13 @@ const styles = StyleSheet.create({
     container: {
       backgroundColor: "white",
       flexDirection: "column",
-      //borderWidth: 0.5,
-      //borderColor: "grey",
       justifyContent: "space-between",
-      marginBottom: 20,
-      paddingBottom: 20,
-    //   borderRadius: 7,
+      marginBottom: 10,
+      paddingBottom: 10,
+
+      borderWidth: 0.5,
+      borderColor: "rgb(220, 220, 220)",
+      borderRadius: 7,
     },
 
     activeSegment: {
@@ -211,13 +250,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
+        marginTop: 5
     },
 
 })
 
 const mapStateToProps = (state) => ({
-    userData: state.userData,
-    teamData: state.teamData
+    appData: state.appData
 });
 const mapActionsToProps = {
 };
