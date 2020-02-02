@@ -56,9 +56,9 @@ class HomeScreen extends React.Component {
       type: "success",
     })
     setTimeout(function(){
-      Linking.canOpenURL("https://yamastack.com").then(supported => {
+      Linking.canOpenURL("https://play.google.com/store/apps/details?id=com.yamastack.nCoV").then(supported => {
         if (supported) {
-          Linking.openURL("https://yamastack.com");
+          Linking.openURL("https://play.google.com/store/apps/details?id=com.yamastack.nCoV");
         }
       });
     }, 2000);

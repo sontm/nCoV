@@ -57,9 +57,9 @@ class HomeScreen extends React.Component {
       type: "success",
     })
     setTimeout(function(){
-      Linking.canOpenURL("https://yamastack.com").then(supported => {
+      Linking.canOpenURL("https://itunes.apple.com/app/id1497453946").then(supported => {
         if (supported) {
-          Linking.openURL("https://yamastack.com");
+          Linking.openURL("https://itunes.apple.com/app/id1497453946");
         }
       });
     }, 2000);
