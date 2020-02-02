@@ -15,6 +15,12 @@ export function HeaderText(props) {
   );
 }
 
+export function RedText(props) {
+  return (
+    <Text {...props} style={[props.style, { color: AppConstants.COLOR_GOOGLE, fontWeight:"normal" }]} />
+  );
+}
+
 export function WhiteText(props) {
   return (
     <Text {...props} style={[props.style, { color: 'white' }]} />
@@ -23,17 +29,17 @@ export function WhiteText(props) {
 
 export function TypoH4(props) {
   return (
-    <Text {...props} style={[props.style, { fontSize: 20 }]} />
+    <Text {...props} style={[props.style, { fontSize: 18 }]} />
   );
 }
 export function TypoH5(props) {
   return (
-    <Text {...props} style={[props.style, { fontSize: 18 }]} />
+    <Text {...props} style={[props.style, { fontSize: 16 }]} />
   );
 }
 export function TypoH6(props) {
   return (
-    <Text {...props} style={[props.style, { fontSize: 16 }]} />
+    <Text {...props} style={[props.style, { fontSize: 14 }]} />
   );
 }
 

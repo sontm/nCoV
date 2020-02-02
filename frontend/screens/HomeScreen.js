@@ -18,17 +18,13 @@ import AppLocales from '../constants/i18n';
 import {Container, Header, Title, Subtitle, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem, Thumbnail , Badge} from 'native-base';
 import {VictoryLabel, VictoryPie, VictoryBar, VictoryContainer, VictoryLegend, VictoryArea, VictoryLine, VictoryAxis} from 'victory-native';
 import { HeaderText, WhiteText } from '../components/StyledText';
-import {
-  LineChart
-} from "react-native-chart-kit";
+
+import {actAppSyncLatestDataIfNeeded} from '../redux/AppDataReducer'
+
 import HomeTotalCasesByTime from '../components/HomeTotalCasesByTime'
-import CountryCaseDeathBar from '../components/CountryCaseDeathBar'
+import NCoVNSarsCoV from '../components/NCoVNSarsCoV'
 
-
-import {actVehicleDeleteVehicle, actVehicleAddVehicle, actUserGetNotifications, actUserSyncPartlyOK} from '../redux/UserReducer'
-import {actTempCalculateCarReport} from '../redux/UserReducer'
-import backend from '../constants/Backend';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {checkAndShowInterestial} from '../components/AdsManager'
 
 // vehicleList: {brand: "Kia", model: "Cerato", licensePlate: "18M1-78903", checkedDate: "01/14/2019", id: 3}
 // fillGasList: {vehicleId: 2, fillDate: "10/14/2019, 11:30:14 PM", amount: 2, price: 100000, currentKm: 123344, id: 1}
@@ -45,9 +41,15 @@ class HomeScreen extends React.Component {
 
   }
 
-  render() {
-    AppUtils.CONSOLE_LOG("HOMESCreen Render")
+  onClickSourceWHO() {
+    Linking.canOpenURL("https://www.who.int/emergencies/diseases/novel-coronavirus-2019").then(supported => {
+      if (supported) {
+        Linking.openURL("https://www.who.int/emergencies/diseases/novel-coronavirus-2019");
+      }
+    });
+  }
 
+  render() {
     let theData = this.props.appData.ncov;
 
     let totalCaseWorld = theData.data[0].world.case;
@@ -88,13 +90,20 @@ class HomeScreen extends React.Component {
             {/* <Button badge transparent onPress={() => this.props.navigation.toggleDrawer()}>
               <Icon name="menu" style={{color: "white", fontSize: 24}} />
             </Button> */}
+            
           </Left>
           <Body style={{flex: 5, alignItems: "center"}}>
-            <Title><HeaderText style={{fontSize: 30}}>{AppLocales.t("NHOME_HEADER")}</HeaderText></Title>
+            <View style={{flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+            <Icon type="FontAwesome" name="circle" style={{color: AppConstants.COLOR_LIGHT_RED, fontSize: 20, width: 20, alignSelf:"center", 
+              marginTop: 5, marginRight: 3}} />
+            <Title><HeaderText style={{fontSize: 29}}>{AppLocales.t("NHOME_HEADER")}</HeaderText></Title></View>
             {latestDate ? 
             <Subtitle><HeaderText>{latestDate.toGMTString()}</HeaderText></Subtitle> : null}
           </Body>
           <Right  style={{flex:1}}>
+            <Button badge transparent onPress={() => this.props.actAppSyncLatestDataIfNeeded(this.props.appData, true)}>
+              <Icon type="Foundation" name="refresh" style={{color: "white", fontSize: 24}} />
+            </Button>
           </Right>
         </Header>
        
@@ -110,6 +119,9 @@ class HomeScreen extends React.Component {
             <View style={styles.statRow}>
               <View style={styles.equalStartRowSingle}>
                 <View style={{flexDirection:"row", justifyContent:"center",alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 12, marginRight: 2, marginBottom: 3, color:AppUtils.getColorForRisk(theData.data[0].world.risk)}}>
+                    {theData.data[0].world.risk ? theData.data[0].world.risk +" Risk" : ""}
+                  </Text>
                   <Text style={{alignSelf: "center", fontSize: 28, marginBottom: 5}}>
                     {AppLocales.t("NHOME_GENERAL_WORLD")}
                   </Text>
@@ -117,6 +129,7 @@ class HomeScreen extends React.Component {
                     source={require('../assets/images/flag/world.png')}
                     style={{width: 22,height: 22, alignSelf:"flex-start", marginLeft: 5, marginTop: 3}}
                   />
+                  
                 </View>
                 
                 
@@ -127,7 +140,7 @@ class HomeScreen extends React.Component {
                   {AppLocales.t("NHOME_CASE_CONFIRMED")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 38}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 40}}>
                       {(theData.data[0].world.case)}</Text>
   
                   </View>
@@ -144,7 +157,7 @@ class HomeScreen extends React.Component {
                   {AppLocales.t("NHOME_CASE_DEATH")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 38}}>
                       {(theData.data[0].world.death)}</Text>
                   </View>
                   <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
@@ -162,6 +175,9 @@ class HomeScreen extends React.Component {
             <View style={styles.statRow}>
               <View style={styles.equalStartRowNormal}>
                 <View style={{flexDirection:"row", justifyContent:"center",alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 12, marginRight: 2, marginBottom: 3, color:AppUtils.getColorForRisk(theData.data[0].countries[0].risk)}}>
+                    {theData.data[0].countries[0].risk ? theData.data[0].countries[0].risk +" Risk" : ""}
+                  </Text>
                   <Text style={{alignSelf: "center", fontSize: 22, marginBottom: 5}}>
                     {AppLocales.t("NHOME_GENERAL_CHINA")}
                   </Text>
@@ -208,7 +224,7 @@ class HomeScreen extends React.Component {
                 <Button
                       rounded small style={{flexDirection:"row", backgroundColor: AppConstants.COLOR_HEADER_BG,
                         width:100, justifyContent:"center", alignSelf:"center", alignItems:"center", marginTop: 10}}
-                        onPress={() => this.props.navigation.navigate("ChinaScreen")}>
+                        onPress={() => {checkAndShowInterestial();this.props.navigation.navigate("ChinaScreen")}}>
                     <Text style={{fontSize:15, alignSelf:"center"}}>{AppLocales.t("NHOME_GENERAL_MORE")}</Text>
                     <Icon name="arrow-forward" style={{width: 16,fontSize: 16, color: "rgb(240,240,240)", marginLeft: -10}}/>
                   </Button>
@@ -268,7 +284,7 @@ class HomeScreen extends React.Component {
                 <Button
                       rounded small style={{flexDirection:"row", backgroundColor: AppConstants.COLOR_HEADER_BG,
                         width:100, justifyContent:"center", alignSelf:"center", alignItems:"center", marginTop: 10}}
-                      onPress={() => this.props.navigation.navigate("OutsideChinaScreen")}>
+                      onPress={() => {checkAndShowInterestial();this.props.navigation.navigate("OutsideChinaScreen")}}>
                     <Text style={{fontSize:15, alignSelf:"center"}}>{AppLocales.t("NHOME_GENERAL_MORE")}</Text>
                     <Icon name="arrow-forward" style={{width: 16,fontSize: 16, color: "rgb(240,240,240)", marginLeft: -10}}/>
                   </Button>
@@ -358,7 +374,7 @@ class HomeScreen extends React.Component {
                 <Button
                       rounded small style={{flexDirection:"row", backgroundColor: AppConstants.COLOR_HEADER_BG,
                         width:100, justifyContent:"center", alignSelf:"center", alignItems:"center", marginTop: 10}}
-                      onPress={() => this.props.navigation.navigate("VietnamScreen")}>
+                      onPress={() => {checkAndShowInterestial();this.props.navigation.navigate("VietnamScreen")}}>
                     <Text style={{fontSize:15, alignSelf:"center"}}>{AppLocales.t("NHOME_GENERAL_MORE")}</Text>
                     <Icon name="arrow-forward" style={{width: 16,fontSize: 16, color: "rgb(240,240,240)", marginLeft: -10}}/>
                   </Button>
@@ -393,9 +409,10 @@ class HomeScreen extends React.Component {
                   {AppLocales.t("NHOME_FATAL_RATE")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
-                      {(theData.data[0].fatality_rate)+"%"}</Text>
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                      {AppUtils.formatToPercent(theData.data[0].world.death, theData.data[0].world.death+theData.data[0].world.case)}</Text>
                   </View>
+                  
                   <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO, fontStyle:"italic"}}>
                     {AppLocales.t("NHOME_FATAL_RATE_NOTE")}
                   </Text>
@@ -430,8 +447,10 @@ class HomeScreen extends React.Component {
                     <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
                       {(theData.data[0].countries.length)}</Text>
                   </View>
-                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO, fontStyle:"italic"}}>
-                    {AppLocales.t("NHOME_COUNTRIES_NOTE")}
+
+                  <Text style={{alignSelf: "center", fontSize: 13,color: AppConstants.COLOR_TEXT_DARKDER_INFO}}>
+                    {AppUtils.formatValueWithSign((theData.data[0].countries.length - theData.data[1].countries.length)) + 
+                    " "+AppLocales.t("NHOME_GENERAL_PREV_DAY")}
                   </Text>
                 </View>
 
@@ -479,8 +498,36 @@ class HomeScreen extends React.Component {
                     </VictoryContainer>
                 </View>
             </View>
+          
+          
+          <NCoVNSarsCoV />
+          
           <HomeTotalCasesByTime />
 
+          <View style={{flexDirection:"row", alignSelf: "flex-start", marginBottom: 5}}>
+            <Text style={{fontSize: 20, }}>
+              {AppLocales.t("NHOME_HEADER_LATEST_MAP")}
+            </Text>
+          </View>
+          <Image
+            source={require('../assets/images/who_map.png')}
+            style={{width: '100%',height: undefined, aspectRatio: 1220 / 830}}
+          />
+
+          <View style={{flexDirection:"row", alignSelf: "flex-end", marginTop: 10,marginRight: 5}}>
+            <Text style={{fontSize: 14, fontStyle:"italic",color:AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+              {"Data Source is from  "}
+            </Text>
+            <TouchableOpacity onPress={() => this.onClickSourceWHO()}>
+            <Text style={{fontSize: 14, color:AppConstants.COLOR_FACEBOOK, fontStyle:"italic"}}>
+              WHO
+            </Text>
+            </TouchableOpacity>
+          </View>
+                      
+          <Text style={{alignSelf: "flex-end", fontSize: 14, marginRight: 5, fontStyle:"italic", color:AppConstants.COLOR_TEXT_LIGHT_INFO, marginTop: 3}}>
+            {"Version: " + AppConstants.DEFAULT_VERSION}
+          </Text>
           </ScrollView>
         </Content>
 
@@ -497,7 +544,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,
-    minHeight: Layout.window.height - 50
+    minHeight: Layout.window.height - 50,
+    paddingBottom: 40
   },
   contentContainer: {
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,
@@ -685,14 +733,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  userData: state.userData,
-  teamData: state.teamData,
   appData: state.appData
 });
 const mapActionsToProps = {
-  actVehicleDeleteVehicle, actVehicleAddVehicle,
-  actTempCalculateCarReport, actUserGetNotifications,
-  actUserSyncPartlyOK
+  actAppSyncLatestDataIfNeeded
 };
 
 export default connect(

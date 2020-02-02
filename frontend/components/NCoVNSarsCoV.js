@@ -7,7 +7,7 @@ import Layout from '../constants/Layout'
 import { connect } from 'react-redux';
 import AppUtils from '../constants/AppUtils'
 import AppConstants from '../constants/AppConstants';
-import {VictoryLabel, VictoryGroup, VictoryBar, VictoryChart, VictoryStack, VictoryContainer, VictoryLegend, VictoryAxis} from 'victory-native';
+import {VictoryLabel, VictoryGroup, VictoryBar, VictoryChart, VictoryStack, VictoryArea, VictoryLine, VictoryAxis} from 'victory-native';
 // import { LineChart, Grid } from 'react-native-svg-charts'
 
 import AppLocales from '../constants/i18n'
@@ -17,7 +17,7 @@ import {
   } from "react-native-chart-kit";
 import { NoDataText, TypoH5 } from './StyledText';
 
-class CountryCaseDeathBar extends React.Component {
+class NCoVNSarsCoV extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,94 +26,47 @@ class CountryCaseDeathBar extends React.Component {
 
   }
 
-  //   data: [
-    //     {
-    //         date:"2020-01-31 12:45",
-            // countries: [
-            //     {
-            //         name:"China",
-            //         name_vn:"China",
-            //         code:"cn",
-            //         case: 9782,
-            //         death: 213,
-            //     },
-    //     }]
-
-  // Out
-  // data:[{x:1|2|3,y}]
-  // arrLabelY:["China","Vietnam"]
-  parseCountriesTop(inputData, showChinaProvince, showVietnamProvince) {
-    let caseArr = [];
-    let deathArr = [];
-    let arrLabelY = [];
-
-    if (showVietnamProvince) {
-        if (inputData && inputData.vietnam_province && inputData.vietnam_province.length > 0 && inputData.vietnam_province[0].provinces) {
-            inputData.vietnam_province[0].provinces.forEach( (item,idx) => {
-                arrLabelY.push(item.name)
-
-                caseArr.push({x: idx+1, y: item.case})
-                if (item.death) {
-                    deathArr.push({x: idx+1, y: item.death})
-                } else {
-                    deathArr.push({x: idx+1, y: 0})
-                }
-            })
-        }
-    } else
-    if (showChinaProvince) {
-        if (inputData && inputData.china_province && inputData.china_province.length > 0 && inputData.china_province[0].provinces) {
-            inputData.china_province[0].provinces.forEach( (item,idx) => {
-                if (idx > 0) {
-                    arrLabelY.push(item.name)
-
-                    caseArr.push({x: idx, y: item.case})
-                    if (item.death) {
-                        deathArr.push({x: idx, y: item.death})
-                    }
-                }
-            })
-        }
-    } else {
-        // Show Other countries
-        if (inputData && inputData.data && inputData.data.length > 0 && inputData.data[0].countries) {
-            inputData.data[0].countries.forEach( (item,idx) => {
-                if (idx > 0) {
-                let xDate = new Date(item.date)
-                arrLabelY.push(item.name)
-
-                caseArr.push({x: idx, y: item.case})
-                deathArr.push({x: idx, y: item.death})
-                }
-            })
-        }
-    }
-
-    return {caseArr, deathArr, arrLabelY};
-  }
-
+  
   render() {
-    var {caseArr, deathArr, arrLabelY} = this.parseCountriesTop(this.props.appData.ncov, this.props.showChinaProvince, this.props.showVietnamProvince)
-    let theBarWidth = 8;
-    if (arrLabelY.length < 10) {
-        theBarWidth = 15;
-    }
+    let theData = this.props.appData.ncov;
+    // let caseArr = [{x:1,y:1},{x:2, y: 8096},{x:3,y:theData.data[0].world.case},{x:4,y:1}]
+    // let deathArr = [{x:1,y:1},{x:2, y: 774},{x:3,y:theData.data[0].world.death},{x:4,y:1}]
+    let caseArr = [{x:1, y: 8096},{x:2,y:theData.data[0].world.case}]
+    let deathArr = [{x:1, y: 774},{x:2,y:theData.data[0].world.death}]
+    let arrLabelX = ["SARS-CoV", "nCoV"]
+    let theBarWidth = 35;
     return (
         <View style={styles.container}>
-            <View style={styles.textRow}>
+            <View style={{...styles.textRow, alignSelf:"center"}}>
                 <Text><H3>
-                    {this.props.showChinaProvince ? AppLocales.t("NHOME_HEADER_CHINA_PROVINCES") :
-                    (this.props.showVietnamProvince ? AppLocales.t("NHOME_HEADER_VIETNAM_PROVINCES") : AppLocales.t("NHOME_HEADER_COUNTRIES_BAR"))}
+                    SARS(2003) vs nCoV
                 </H3></Text>
-                    
+            </View>
+
+            <View style={{flexDirection:"row", justifyContent:"space-around", marginTop: 10}}>
+                <Text style={{alignSelf: "center", fontSize: 11, color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {AppLocales.t("NHOME_FATAL_RATE")}
+                </Text>
+                <Text style={{alignSelf: "center", fontSize: 11, color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {AppLocales.t("NHOME_FATAL_RATE")}
+                </Text>
+            </View>
+
+            <View style={{flexDirection:"row", justifyContent:"space-around"}}>
+                <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 30}}>
+                    {"9.6%"}
+                </Text>
+                <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 30}}>
+                    {AppUtils.formatToPercent(theData.data[0].world.death, theData.data[0].world.death+theData.data[0].world.case)}
+                </Text>
             </View>
 
             <View style={styles.gasUsageContainer}>
                 <VictoryChart
                     width={Layout.window.width}
-                    height={arrLabelY.length*19 < 200 ? 200 :arrLabelY.length*19 }
-                    padding={{top:5,bottom:20,left:73,right:30}}
-                    domainPadding={{y: [0, 0], x: [20, 10]}}
+                    height={250}
+                    padding={{top:20,bottom:20,left:10,right:10}}
+                    domainPadding={{y: [0, 0], x: [Layout.window.width/4, Layout.window.width/4]}}
                     colorScale={AppConstants.COLOR_SCALE_10}
                 >
                 <VictoryStack
@@ -121,28 +74,23 @@ class CountryCaseDeathBar extends React.Component {
                     //domainPadding={{y: [0, 10], x: [20, 10]}}
                     colorScale={AppConstants.COLOR_SCALE_10}
                 >
-                {/* <VictoryGroup offset={100}
-                    colorScale={AppConstants.COLOR_SCALE_10}
-                > */}
                     <VictoryBar
                         barWidth={theBarWidth}
                         data={caseArr}
-                        horizontal
-                        labels={({ datum }) => `${datum.y>0?datum.y:""}`}
-                        labelComponent={<VictoryLabel dx={1} style={{fontSize: 9}}/>}
+                        labels={({ datum }) => `${datum.y>0?(datum.y+" cases"):""}`}
+                        labelComponent={<VictoryLabel dx={50} dy={20} style={{fontSize: 10}}/>}
                     />
                     <VictoryBar
                         barWidth={theBarWidth}
                         data={deathArr}
-                        horizontal
-                        labels={({ datum }) => `${datum.y>0?datum.y:""}`}
-                        labelComponent={<VictoryLabel dx={1} style={{fontSize: 9}}/>}
+                        labels={({ datum }) => `${datum.y>0?(datum.y+" deaths"):""}`}
+                        labelComponent={<VictoryLabel dx={0} dy={-5} style={{fontSize: 10}}/>}
                     />
                 </VictoryStack>
                 <VictoryAxis
                     crossAxis
                     standalone={false}
-                    tickValues={arrLabelY}
+                    tickValues={arrLabelX}
                     //tickFormat={(t,idx) => `${AppUtils.formatDateMonthYearVN(t)}`}
                     tickLabelComponent={<VictoryLabel style={{fontSize: 10}}/>}
                     // tickCount={arrKmPerWeek ? arrKmPerWeek.length/2 : 1}
@@ -153,7 +101,7 @@ class CountryCaseDeathBar extends React.Component {
                         tickLabels: {fontSize: 9,padding: 1, angle: 0}
                     }}
                 />
-                <VictoryAxis
+                {/* <VictoryAxis
                     dependentAxis
                     standalone={false}
                     //label={arrLabelY[this.state.activeDisplay]}
@@ -165,27 +113,9 @@ class CountryCaseDeathBar extends React.Component {
                         ticks: {stroke: "grey", size: 5},
                         tickLabels: {fontSize: 10, padding: 0}
                     }}
-                />
-                </VictoryChart>
+                /> */}
 
-                {this.props.noLegend ? null :
-                <View style={{marginTop: 5, marginLeft: 10}}>
-                    <VictoryContainer
-                        width={Layout.window.width}
-                        height={20}
-                    >
-                    <VictoryLegend standalone={false}
-                        x={15} y={5}
-                        itemsPerRow={4}
-                        colorScale={AppConstants.COLOR_SCALE_10}
-                        orientation="horizontal"
-                        gutter={20}
-                        symbolSpacer={5}
-                        labelComponent={<VictoryLabel style={{fontSize: 12}}/>}
-                        data={[{name:AppLocales.t("NHOME_CASE_CONFIRMED")},{name:AppLocales.t("NHOME_CASE_DEATH")}]}
-                    />
-                    </VictoryContainer>
-                </View>}
+                </VictoryChart>
             </View>
         </View>
     )
@@ -197,12 +127,15 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       flexDirection: "column",
       justifyContent: "space-between",
-      marginBottom: 10,
-      paddingBottom: 10,
+      marginTop: 10,
+    //   marginBottom: 10,
+      paddingBottom: 5,
+
+      marginHorizontal: 5,
 
       borderWidth: 0.5,
       borderColor: "rgb(220, 220, 220)",
-      borderRadius: 0,
+      borderRadius: 7,
     },
 
     activeSegment: {
@@ -279,4 +212,4 @@ const mapActionsToProps = {
   
 export default connect(
     mapStateToProps,mapActionsToProps
-)(CountryCaseDeathBar);
+)(NCoVNSarsCoV);

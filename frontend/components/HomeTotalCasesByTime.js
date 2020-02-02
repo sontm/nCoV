@@ -11,7 +11,7 @@ import {VictoryLabel, VictoryScatter, VictoryGroup, VictoryChart, VictoryStack, 
 
 import { connect } from 'react-redux';
 import AppLocales from '../constants/i18n'
-import {NoDataText} from './StyledText';
+import {NoDataText, TypoH4} from './StyledText';
 
 class HomeTotalCasesByTime extends React.Component {
   constructor(props) {
@@ -32,13 +32,24 @@ class HomeTotalCasesByTime extends React.Component {
 
   // Out
   // [{x,y}]
-  parseWorldCurrimulative(inputData) {
+  componentWillMount() {
+    if (this.props.showSpecific==AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")) {
+        this.setState({
+            country:AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")
+        })
+    }
+  }
+  parseWorldCurrimulative(inputData, showSpecific) {
     let caseArr = [];
     let deathArr = [];
     let tickXLabels = [];
-    console.log("this.state.country----------")
-    console.log(this.state.country)
-    if (this.state.country == AppLocales.t("NHOME_GENERAL_WORLD")) {
+    let noteText = null;
+    let selectCountry = this.state.country;
+
+    if (showSpecific && this.props.showSpecific!=AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")) {
+        selectCountry = showSpecific;
+    }
+    if (selectCountry == AppLocales.t("NHOME_GENERAL_WORLD")) {
         if (inputData && inputData.data && inputData.data.length > 0) {
             inputData.data.forEach( item => {
                 let xDate = new Date(item.date)
@@ -48,7 +59,7 @@ class HomeTotalCasesByTime extends React.Component {
                 deathArr.push({x: xDate, y: item.world.death})
             })
         }
-    } else if (this.state.country == AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")) {
+    } else if (selectCountry == AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")) {
         // Other Country than China Mainland
         if (inputData && inputData.data && inputData.data.length > 0) {
             inputData.data.forEach( item => {
@@ -67,6 +78,8 @@ class HomeTotalCasesByTime extends React.Component {
     } else {
         // Specific Country
         if (inputData && inputData.data && inputData.data.length > 0) {
+            let isFirstData = true;
+
             inputData.data.forEach( item => {
                 let xDate = new Date(item.date)
                 AppUtils.pushInDateLabelsIfNotExist(tickXLabels, xDate)
@@ -75,7 +88,11 @@ class HomeTotalCasesByTime extends React.Component {
                 if (item.countries.length > 0) {
                     for(let i = 0; i < item.countries.length; i++) {
                         let theCountry = item.countries[i]
-                        if (theCountry.name == this.state.country) {
+                        if (theCountry.name == selectCountry) {
+                            if (isFirstData) {
+                                noteText = theCountry.note;
+                                isFirstData = false;
+                            }
                             caseArr.push({x: xDate, y: theCountry.case})
                             deathArr.push({x: xDate, y: theCountry.death})
                             isExist = true;
@@ -94,13 +111,15 @@ class HomeTotalCasesByTime extends React.Component {
         }
     }
 
-    return {caseArr, deathArr, tickXLabels};
+    return {caseArr, deathArr, tickXLabels, noteText};
   }
-  renderDropdownItemCountry(inputData) {
+  renderDropdownItemCountry(inputData, showOtherOnly) {
     var dropdownView = [];
-    dropdownView.push(
-        <Picker.Item label={"--"+AppLocales.t("NHOME_GENERAL_WORLD")+"--"} value={AppLocales.t("NHOME_GENERAL_WORLD")} key={AppLocales.t("NHOME_GENERAL_WORLD")}/>
-    )
+    if (!showOtherOnly) {
+        dropdownView.push(
+            <Picker.Item label={"--"+AppLocales.t("NHOME_GENERAL_WORLD")+"--"} value={AppLocales.t("NHOME_GENERAL_WORLD")} key={AppLocales.t("NHOME_GENERAL_WORLD")}/>
+        )
+    }
     dropdownView.push(
         <Picker.Item label={"--"+AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")+"--"} value={AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")} 
             key={AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")}/>
@@ -108,9 +127,17 @@ class HomeTotalCasesByTime extends React.Component {
 
     if (inputData.data && inputData.data.length > 0 && inputData.data[0].countries) {
         inputData.data[0].countries.forEach(item => {
-            dropdownView.push (
-                <Picker.Item label={item.name} value={item.name} key={item.name}/>
-            )
+            if (showOtherOnly) {
+                if (item.name != AppLocales.t("NHOME_GENERAL_CHINA")) {
+                    dropdownView.push (
+                        <Picker.Item label={item.name} value={item.name} key={item.name}/>
+                    )
+                }
+            } else {
+                dropdownView.push (
+                    <Picker.Item label={item.name} value={item.name} key={item.name}/>
+                )
+            }
         })
     }
     
@@ -118,19 +145,16 @@ class HomeTotalCasesByTime extends React.Component {
   }
   render() {
         // Tong Quan of Current User
-        var {caseArr, deathArr, tickXLabels} 
-            = this.parseWorldCurrimulative(this.props.appData.ncov);
-        tickXLabels = AppUtils.reviseTickLabelsToCount(tickXLabels, 9);
+        var {caseArr, deathArr, tickXLabels, noteText} 
+            = this.parseWorldCurrimulative(this.props.appData.ncov, this.props.showSpecific);
+        tickXLabels = AppUtils.reviseTickLabelsToCount(tickXLabels, 10);
 
         // If Area Chart, it need 2 Points to DRAW, otherwise Chart will Error
-        let dropdownView = this.renderDropdownItemCountry(this.props.appData.ncov);
+        let dropdownView = this.renderDropdownItemCountry(this.props.appData.ncov, this.props.showSpecific==AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY"));
         if (caseArr && caseArr.length > 1) {
-            
-            console.log("tickXLabels--------")
-            console.log(tickXLabels)
         return (
             <View style={styles.container}>
-                
+                {(!this.props.showSpecific||this.props.showSpecific==AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")) ?
                 <View style={styles.rowContainerCarSelect}>
                     <Picker
                         style={{width: AppConstants.DEFAULT_FORM_WIDTH,
@@ -146,12 +170,19 @@ class HomeTotalCasesByTime extends React.Component {
                     >
                         {dropdownView}
                     </Picker>
-                </View>
+                </View> : null}
+
+                {(this.props.showSpecific&&this.props.showSpecific!=AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY"))?
+                <View style={{...styles.textRow, alignSelf:"center"}}>
+                    <Text><H3>
+                        {this.props.showSpecific}
+                    </H3></Text>
+                </View> : null}
 
                 <View style={styles.textRow}>
-                    <Text><H3>
-                        {AppLocales.t("NHOME_HEADER_TOTAL_CASE_BYTIME")}
-                    </H3></Text>
+                    <Text><TypoH4>
+                        {this.props.showVNLang ? AppLocales.t("NHOME_HEADER_TOTAL_CASE_BYTIME_VN"):AppLocales.t("NHOME_HEADER_TOTAL_CASE_BYTIME")}
+                    </TypoH4></Text>
                     
                 </View>
 
@@ -172,7 +203,7 @@ class HomeTotalCasesByTime extends React.Component {
                                     stroke: AppConstants.COLOR_HEADER_BG, strokeWidth: 1.5
                                 },
                             }}
-                            labels={({ datum }) => (datum&&datum.y > 0) ? (datum.y) : ""}
+                            labels={({ datum }) => (datum&&datum.y > 0&&tickXLabels.indexOf(datum.x)>0) ? (datum.y) : ""}
                             labelComponent={<VictoryLabel style={{fontSize: 9}}/>}
                             colorScale={AppConstants.COLOR_SCALE_10}
                         />
@@ -199,7 +230,7 @@ class HomeTotalCasesByTime extends React.Component {
                         <VictoryAxis
                             dependentAxis
                             standalone={false}
-                            tickFormat={(t) => `${(t>1) ? t : 0}`}
+                            tickFormat={(t) => `${(t>=1) ? t : 0}`}
                             // tickCount={arrKmPerWeek ? arrKmPerWeek.length/2 : 1}
                             style={{
                                 // ticks: {stroke: "grey", size: 5},
@@ -209,14 +240,15 @@ class HomeTotalCasesByTime extends React.Component {
                         />
 
                         </VictoryChart>
+                        
                     </View>
                 </View>
 
 
                 <View style={styles.textRow}>
-                    <Text><H3>
-                        {AppLocales.t("NHOME_HEADER_TOTAL_DEATH_BYTIME")}
-                    </H3></Text>
+                    <Text><TypoH4>
+                        {this.props.showVNLang ? AppLocales.t("NHOME_HEADER_TOTAL_DEATH_BYTIME_VN"):AppLocales.t("NHOME_HEADER_TOTAL_DEATH_BYTIME")}
+                    </TypoH4></Text>
                     
                 </View>
 
@@ -237,7 +269,7 @@ class HomeTotalCasesByTime extends React.Component {
                                     stroke: AppConstants.COLOR_GOOGLE, strokeWidth: 1.5
                                 },
                             }}
-                            labels={({ datum }) => (datum&&datum.y > 0) ? (datum.y) : ""}
+                            labels={({ datum }) => (datum&&datum.y > 0&&tickXLabels.indexOf(datum.x)>0) ? (datum.y) : ""}
                             labelComponent={<VictoryLabel style={{fontSize: 9}}/>}
                             colorScale={AppConstants.COLOR_SCALE_10}
                         />
@@ -263,7 +295,7 @@ class HomeTotalCasesByTime extends React.Component {
                         <VictoryAxis
                             dependentAxis
                             standalone={false}
-                            tickFormat={(t) => `${(t>1) ? t : 0}`}
+                            tickFormat={(t) => `${(t>=1) ? t : 0}`}
                             // tickCount={arrKmPerWeek ? arrKmPerWeek.length/2 : 1}
                             style={{
                                 // ticks: {stroke: "grey", size: 5},
@@ -275,6 +307,14 @@ class HomeTotalCasesByTime extends React.Component {
                         </VictoryChart>
                     </View>
                 </View>
+                
+                {noteText ?
+                <View style={{minHeight: 50, backgroundColor:"white", marginTop: 10}}>
+                    <Text style={{fontSize: 17, marginLeft: 10, marginRight: 10,marginTop: 10,marginBottom: 10, flexWrap:"wrap",
+                        color:AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                        {noteText}
+                    </Text>
+                </View> : null}
             </View>
         )
         } else {

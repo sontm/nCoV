@@ -66,7 +66,7 @@ class AdsManager extends React.Component {
   componentDidMount() {
     apputils.CONSOLE_LOG("||||Ads Manager|||| DidMount, count:" + this.props.appData.countOpen)
     this.props.actAppIncreaseOpenCount()
-    if (this.props.appData.countOpen < 10 || this.props.userData.isNoAds) {
+    if (this.props.appData.countOpen < 10) {
         canShowInterestial = false;
     } else {
         //canShowInterestial = !this.props.appData.isNoAds;
@@ -87,14 +87,14 @@ class AdsManager extends React.Component {
   }
 
   didReceiveAd() {
+    apputils.CONSOLE_LOG("-------------Ads didReceiveAd--------------")
     this.setState({didReceiveAd: true})
   }
   
   render() {
     apputils.CONSOLE_LOG("||||Ads Manager|||| Render, count:" + this.props.appData.countOpen)
-    apputils.CONSOLE_LOG(this.props.userData.isNoAds)
     //this.props.appData.isNoAds
-    if (this.props.appData.countOpen < 10 || this.props.userData.isNoAds) {
+    if (this.props.appData.countOpen < 3) {
         return null
     } else {
         if (this.state.bannerError)
@@ -105,7 +105,7 @@ class AdsManager extends React.Component {
             return (
                 <AdMobBanner
                     style={styles.bottomBanner}
-                    bannerSize="banner"
+                    bannerSize="fullBanner"
                     adUnitID={AppConstants.ADS_BANNERID}
                     //testDeviceID="EMULATOR"
                     onDidFailToReceiveAdWithError={this.bannerError}
@@ -117,7 +117,7 @@ class AdsManager extends React.Component {
                 <View style={{position: "absolute", bottom: AppConstants.DEFAULT_BOTTOM_NAV_HEIGHT, left: 0, right: 0}}>
                     <AdMobBanner
                         style={styles.bottomBanner}
-                        bannerSize="banner"
+                        bannerSize="fullBanner"
                         adUnitID={AppConstants.ADS_BANNERID}
                         //testDeviceID="EMULATOR"
                         onDidFailToReceiveAdWithError={this.bannerError}
@@ -138,8 +138,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => ({
-    appData: state.appData,
-    userData: state.userData
+    appData: state.appData
 });
 const mapActionsToProps = {
     actAppIncreaseOpenCount

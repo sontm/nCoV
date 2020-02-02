@@ -6,7 +6,10 @@ import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import AppConstants from '../constants/AppConstants';
 import apputils from '../constants/AppUtils';
+import AppLocales from '../constants/i18n';
+import NetInfo from "@react-native-community/netinfo";
 import {actAppSyncLatestDataIfNeeded} from '../redux/AppDataReducer'
+import {Toast} from 'native-base';
 
 class CheckLatestAppDataManager extends React.Component {
   constructor(props) {
@@ -14,8 +17,21 @@ class CheckLatestAppDataManager extends React.Component {
 
   }
   
-  componentWillMount() {
-    this.props.actAppSyncLatestDataIfNeeded(this.props.appData);
+  componentDidMount() {
+    NetInfo.fetch().then(state => {
+      if (state.isConnected) {
+        this.props.actAppSyncLatestDataIfNeeded(this.props.appData);
+      } else {
+        Toast.show({
+          text: AppLocales.t("NHOME_TOAST_NEED_INTERNET_CON"),
+          //buttonText: "Okay",
+          position: "bottom",
+          type: "danger",
+          duration: 5000
+        })
+      }
+    });
+    
   }
 
   render() {

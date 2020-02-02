@@ -19,6 +19,7 @@ import {VictoryLabel, VictoryPie, VictoryBar, VictoryContainer, VictoryLegend, V
 import { HeaderText, WhiteText } from '../components/StyledText';
 
 import CountryCaseDeathBar from '../components/CountryCaseDeathBar'
+import HomeTotalCasesByTime from '../components/HomeTotalCasesByTime'
 
 class OutsideChinaScreen extends React.Component {
   constructor(props) {
@@ -30,8 +31,6 @@ class OutsideChinaScreen extends React.Component {
   
 
   render() {
-    AppUtils.CONSOLE_LOG("OutsideChinaScreen Render")
-    
     return (
       <Container>
         <Content>
@@ -39,8 +38,16 @@ class OutsideChinaScreen extends React.Component {
           <ScrollView
             style={styles.container}
             contentContainerStyle={styles.contentContainer}>
-
             <CountryCaseDeathBar />
+
+            <HomeTotalCasesByTime showSpecific={AppLocales.t("NHOME_GENERAL_OTHER_COUNTRY")}/>
+
+            <Text style={{alignSelf: "center", fontSize: 14, fontStyle:"italic", marginTop: -7,
+                color:AppConstants.COLOR_TEXT_DARKDER_INFO}}>
+              {(this.props.appData.ncov.data[0].date && new Date(this.props.appData.ncov.data[0].date)) ? 
+                "Data at: "+new Date(this.props.appData.ncov.data[0].date).toGMTString()
+              : ""}
+            </Text>
 
           </ScrollView>
         </Content>
@@ -71,7 +78,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,
     minHeight: Layout.window.height - 50,
-    paddingTop: 10
+    paddingTop: 5,
+    paddingBottom: 40
   },
   contentContainer: {
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,

@@ -19,6 +19,7 @@ import {VictoryLabel, VictoryPie, VictoryBar, VictoryContainer, VictoryLegend, V
 import { HeaderText, WhiteText } from '../components/StyledText';
 
 import CountryCaseDeathBar from '../components/CountryCaseDeathBar'
+import HomeTotalCasesByTime from '../components/HomeTotalCasesByTime'
 
 class VietnamScreen extends React.Component {
   constructor(props) {
@@ -28,10 +29,15 @@ class VietnamScreen extends React.Component {
 
   }
   
+  onClickSource() {
+    Linking.canOpenURL("https://suckhoedoisong.vn/Virus-nCoV-cap-nhat-moi-nhat-lien-tuc-n168210.html").then(supported => {
+      if (supported) {
+        Linking.openURL("https://suckhoedoisong.vn/Virus-nCoV-cap-nhat-moi-nhat-lien-tuc-n168210.html");
+      }
+    });
+  }
 
   render() {
-    AppUtils.CONSOLE_LOG("VietnamScreen Render")
-
     return (
       <Container>
         <Content>
@@ -42,9 +48,20 @@ class VietnamScreen extends React.Component {
 
             <CountryCaseDeathBar showVietnamProvince={true}/>
 
-            <Text style={{alignSelf: "flex-start", fontSize: 24, marginBottom: 5, marginTop: 10}}>
-              {AppLocales.t("NHOME_HEADER_VIETNAM_INFO_HEALTH")}
-            </Text>
+            <HomeTotalCasesByTime showSpecific={AppLocales.t("NHOME_GENERAL_VIETNAM")} showVNLang={true}/>
+
+            <View style={{alignSelf: "flex-start", flexDirection:"row",marginBottom: 5, marginTop: 10, justifyContent:"flex-end"}}>
+              <Text style={{fontSize: 22}}>
+                {AppLocales.t("NHOME_HEADER_VIETNAM_INFO_HEALTH")}
+              </Text>
+
+              <TouchableOpacity onPress={() => this.onClickSource()}>
+              <Text style={{fontSize: 15, color: AppConstants.COLOR_FACEBOOK, fontStyle:"italic", marginLeft: 7, marginTop: 5}}>
+                (nguồn Bộ Y Tế)
+              </Text>
+              </TouchableOpacity>
+
+            </View>
 
             <Image
                 source={require('../assets/images/vn/danh_sach_bv.jpg')}
@@ -61,6 +78,11 @@ class VietnamScreen extends React.Component {
                 style={{width: '100%',height: undefined, aspectRatio: 1063 / 3064}}
             />
 
+            <Image
+                source={require('../assets/images/vn/hospital.jpg')}
+                style={{width: '100%',height: undefined, aspectRatio: 1063 / 1208}}
+            />
+
           </ScrollView>
         </Content>
 
@@ -72,15 +94,15 @@ class VietnamScreen extends React.Component {
 VietnamScreen.navigationOptions = ({navigation}) => ({
   header: (
       <Header style={{backgroundColor: AppConstants.COLOR_HEADER_BG, marginTop:-AppConstants.DEFAULT_IOS_STATUSBAR_HEIGHT}}>
-        <Left>
+        <Left style={{flex:1}}>
           <Button transparent onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" style={{color:"white"}}/>
           </Button>
         </Left>
-        <Body>
-          <Title><HeaderText>{AppLocales.t("NHOME_GENERAL_VIETNAM")}</HeaderText></Title>
+        <Body style={{flex:5}}>
+          <Title><HeaderText>{AppLocales.t("NHOME_HEADER_VIETNAM_CASES")}</HeaderText></Title>
         </Body>
-        <Right />
+        <Right  style={{flex:1}}/>
       </Header>
   )
 });
@@ -90,7 +112,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,
     minHeight: Layout.window.height - 50,
-    paddingTop: 10
+    paddingTop: 10,
+    paddingBottom: 30
   },
   contentContainer: {
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,
