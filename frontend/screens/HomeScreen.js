@@ -15,7 +15,7 @@ import AppUtils from '../constants/AppUtils'
 import AppConstants from '../constants/AppConstants';
 import AppLocales from '../constants/i18n';
 
-import {Container, Header, Title, Subtitle, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem, Thumbnail , Badge} from 'native-base';
+import {Container, Header, Title, Subtitle, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem, Thumbnail , Toast} from 'native-base';
 import {VictoryLabel, VictoryPie, VictoryBar, VictoryContainer, VictoryLegend, VictoryArea, VictoryLine, VictoryAxis} from 'victory-native';
 import { HeaderText, WhiteText } from '../components/StyledText';
 
@@ -47,6 +47,22 @@ class HomeScreen extends React.Component {
         Linking.openURL("https://www.who.int/emergencies/diseases/novel-coronavirus-2019");
       }
     });
+  }
+  onClickRate() {
+    Toast.show({
+      text: "Please Review/Rate app for us, Thank youu!",
+      //buttonText: "Okay",
+      position: "top",
+      type: "success",
+    })
+    setTimeout(function(){
+      Linking.canOpenURL("https://yamastack.com").then(supported => {
+        if (supported) {
+          Linking.openURL("https://yamastack.com");
+        }
+      });
+    }, 2000);
+    
   }
 
   render() {
@@ -87,9 +103,9 @@ class HomeScreen extends React.Component {
       <Container>
         <Header style={{backgroundColor: AppConstants.COLOR_HEADER_BG, marginTop:-AppConstants.DEFAULT_IOS_STATUSBAR_HEIGHT}}>
           <Left style={{flex:1}}>
-            {/* <Button badge transparent onPress={() => this.props.navigation.toggleDrawer()}>
-              <Icon name="menu" style={{color: "white", fontSize: 24}} />
-            </Button> */}
+            <Button badge transparent onPress={() => this.onClickRate()}>
+              <Icon name="star" style={{color: "yellow", fontSize: 28}} />
+            </Button>
             
           </Left>
           <Body style={{flex: 5, alignItems: "center"}}>

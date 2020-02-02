@@ -94,7 +94,7 @@ class AdsManager extends React.Component {
   render() {
     apputils.CONSOLE_LOG("||||Ads Manager|||| Render, count:" + this.props.appData.countOpen)
     //this.props.appData.isNoAds
-    if (this.props.appData.countOpen < 3) {
+    if (this.props.appData.countOpen < 5) {
         return null
     } else {
         if (this.state.bannerError)

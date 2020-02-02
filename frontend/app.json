@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CoronaVirus Live Stats-Wuhan nCoV",
+    "name": "Corona Virus Live Stats-Wuhan nCoV",
     "slug": "nCoV",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "0.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -29,7 +29,7 @@
     },
     "android": {
       "package": "com.yamastack.nCoV",
-      "versionCode": 3,
+      "versionCode": 4,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-3071645117258809~1993796612"
       }
