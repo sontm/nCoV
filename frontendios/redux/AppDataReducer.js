@@ -13,1374 +13,1272 @@ const APPDATA_SYNC_LATEST = 'APPDATA_SYNC_LATEST';
 
 const NCOV_DATA = {
     vietnam_province: [
-        {
-            date:"2020-02-01T08:00:00.007Z",
-            provinces:[
-                {
-                    name:"Hà Nội",
-                    case: 2,
-                    death: 0
-                },{
-                    name:"TP.HCM",
-                    case: 2,
-                    death: 0
-                },{
-                    name:"Thanh Hoá",
-                    case: 1,
-                    death: 0
-                },{
-                    name:"Khánh Hoà",
-                    case: 1,
-                    death: 0
-                }
-            ]
-        }
-    ],
-    china_province: [
-        {
-            date:"2020-01-31T08:00:00.007Z",
-            provinces:[
-                {
-                    name:"Hubei",
-                    case: 7153
-                },{
-                    name:"Zhejiang",
-                    case: 599
-                },{
-                    name:"Guangdong",
-                    case: 520
-                },{
-                    name:"Henan",
-                    case: 422
-                },{
-                    name:"Hunan",
-                    case: 389
-                },{
-                    name:"Anhui",
-                    case: 297
-                },{
-                    name:"Jiangxi",
-                    case: 286
-                },{
-                    name:"Chongqing",
-                    case: 238
-                },{
-                    name:"Sichuan",
-                    case: 207
-                },{
-                    name:"Shandong",
-                    case: 202
-                },{
-                    name:"Jiangsu",
-                    case: 202
-                },{
-                    name:"Shanghai",
-                    case: 169
-                },{
-                    name:"Beijing",
-                    case: 156
-                },{
-                    name:"Fujian",
-                    case: 144
-                },{
-                    name:"Shaanxi",
-                    case: 101
-                },{
-                    name:"Guangxi",
-                    case: 100
-                },{
-                    name:"Hebei",
-                    case: 96
-                },{
-                    name:"Yunnan",
-                    case: 91
-                },{
-                    name:"Heilongjiang",
-                    case: 80
-                },{
-                    name:"Liaoning",
-                    case: 60
-                },{
-                    name:"Hainan",
-                    case: 60
-                },{
-                    name:"Shanxi",
-                    case: 47
-                },{
-                    name:"Tianjin",
-                    case: 37
-                },{
-                    name:"Gansu",
-                    case: 35
-                },{
-                    name:"Guizhou",
-                    case: 29
-                },{
-                    name:"Ningxia",
-                    case: 26
-                },{
-                    name:"Inner Mongolia",
-                    case: 23
-                },{
-                    name:"Xinjia",
-                    case: 18
-                },{
-                    name:"Jilin",
-                    case: 17
-                },{
-                    name:"Qinghai",
-                    case: 9
-                },{
-                    name:"Xizang",
-                    case: 1
-                }
-            ]
-        }
-    ],
-    data: [
-        {
-            date:"2020-02-01T08:00:00.007Z",
-            world: {
-                case: 11948,
-                death: 259,
-            },
-            tranmission_rate_min: 3.0,
-            tranmission_rate_max: 4.0,
-            fatality_rate: 2,
-            incubation_period_min: 2,
-            incubation_period_max: 14,
-            countries: [
+    {
+        date:"2020-02-02T15:00:00.007Z",
+        provinces:[
             {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 11791,
-                death: 259,
-                suspect: null,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"thai",
-                case: 19,
-                death: 3,
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 17,
-                death: 2,
-            },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"sg",
-                case: 16,
-                death: 2,
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 13,
-                death: 3,
-            },{
-                name:"South Korea",
-                name_vn:"South Korea",
-                code:"kr",
-                case: 11,
-                death: 5,
-
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 10,
-                death: 6,
-            },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"aus",
-                case: 9,
-                death: 5,
-            },{
-                name:"Malaysia",
-                name_vn:"Malaysia",
-                code:"ma",
-                case: 8,
-                death: 0,
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 7,
-                death: 0,
-            },{
-                name:"Germany",
-                name_vn:"Germany",
-                code:"ger",
-                case: 7,
-                death: 0,
-            },{
-                name:"Macao",
-                name_vn:"Macao",
-                code:"Macao",
-                case: 7,
+                name:"TP.HCM",
+                case: 3,
                 death: 0
             },{
-                name:"France",
-                name_vn:"France",
-                code:"fr",
-                case: 6,
-                death: 0,
-
-            },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 6,
-                death: 0,
-                suspect: 28,
-                isolate: 93,
-            },{
-                name:"UAE",
-                name_vn:"UAE",
-                code:"uae",
-                case: 4,
-                death: 0,
-            },{
-                name:"Canada",
-                name_vn:"Canada",
-                code:"Canada",
-                case: 4,
-                death: 0,
-            },{
-                name:"United Kingdom",
-                name_vn:"United Kingdom",
-                code:"uk",
+                name:"Vĩnh Phúc",
                 case: 2,
-                death: 0,
-
+                death: 0
             },{
-                name:"Russia",
-                name_vn:"Russia",
-                code:"ru",
-                case: 2,
-                death: 0,
-
-            },{
-                name:"Italy",
-                name_vn:"Italy",
-                code:"Italy",
-                case: 2,
-                death: 0,
-            },{
-                name:"Finland",
-                name_vn:"Finland",
-                code:"Finland",
+                name:"Thanh Hoá",
                 case: 1,
-                death: 0,
+                death: 0
             },{
-                name:"Sri Lanka",
-                name_vn:"Sri Lanka",
-                code:"Sri Lanka",
+                name:"Khánh Hoà",
                 case: 1,
-                death: 0,
-
-            },{
-                name:"Cambodia",
-                name_vn:"Cambodia",
-                code:"Cambodia",
-                case: 1,
-                death: 0,
-            },{
-                name:"Philippines",
-                name_vn:"Philippines",
-                code:"Philippines",
-                case: 1,
-                death: 0,
-            },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0,
-
-            },{
-                name:"India",
-                name_vn:"India",
-                code:"India",
-                case: 1,
-                death: 0,
-            },{
-                name:"Spain",
-                name_vn:"Spain",
-                code:"Spain",
-                case: 1,
-                death: 0,
-            },{
-                name:"Sweden",
-                name_vn:"Sweden",
-                code:"Sweden",
-                case: 1,
-                death: 0,
+                death: 0
             }
-            ]
-        },{
-            date:"2020-01-31",
-            world: {
-                case: 9826,
-                death: 213,
-            },
-            tranmission_rate_min: 2.0,
-            tranmission_rate_max: 3.1,
-            fatality_rate: 2,
-            incubation_period_min: 2,
-            incubation_period_max: 14,
-            countries: [
+        ]
+    },
+    {
+        date:"2020-02-01T15:00:00.007Z",
+        provinces:[
             {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 9692,
-                death: 213,
-                suspect: 15238,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"thai",
-                case: 14,
-                death: 3,
-            },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"sg",
-                case: 13,
-                death: 2,
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 14,
-                death: 2,
-
-            },{
-                name:"South Korea",
-                name_vn:"South Korea",
-                code:"kr",
-                case: 11,
-                death: 5,
-
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 12,
-                death: 3,
-
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 9,
-                death: 6,
-
-            },{
-                name:"Macao",
-                name_vn:"Macao",
-                code:"Macao",
-                case: 7,
-                death: 0,
-
-            },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"aus",
-                case: 9,
-                death: 5,
-
-            },{
-                name:"Malaysia",
-                name_vn:"Malaysia",
-                code:"ma",
-                case: 8,
-                death: 0,
-
-            },{
-                name:"France",
-                name_vn:"France",
-                code:"fr",
-                case: 6,
-                death: 0,
-
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 6,
-                death: 0,
-
-            },{
-                name:"Germany",
-                name_vn:"Germany",
-                code:"ger",
-                case: 5,
-                death: 0,
-
-            },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 5,
-                death: 0,
-                suspect: 32,
-                isolate: 97,
-            },{
-                name:"UAE",
-                name_vn:"UAE",
-                code:"uae",
-                case: 4,
-                death: 0,
-
-            },{
-                name:"Canada",
-                name_vn:"Canada",
-                code:"Canada",
-                case: 3,
-                death: 0,
-
-            },{
-                name:"Italy",
-                name_vn:"Italy",
-                code:"Italy",
+                name:"Vĩnh Phúc",
                 case: 2,
-                death: 0,
-
+                death: 0
             },{
-                name:"Finland",
-                name_vn:"Finland",
-                code:"Finland",
-                case: 1,
-                death: 0,
-
+                name:"TP.HCM",
+                case: 2,
+                death: 0
             },{
-                name:"Sri Lanka",
-                name_vn:"Sri Lanka",
-                code:"Sri Lanka",
+                name:"Thanh Hoá",
                 case: 1,
-                death: 0,
-
+                death: 0
             },{
-                name:"Cambodia",
-                name_vn:"Cambodia",
-                code:"Cambodia",
+                name:"Khánh Hoà",
                 case: 1,
-                death: 0,
-
-            },{
-                name:"Philippines",
-                name_vn:"Philippines",
-                code:"Philippines",
-                case: 1,
-                death: 0,
-
-            },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0,
-
-            },{
-                name:"India",
-                name_vn:"India",
-                code:"India",
-                case: 1,
-                death: 0,
-
+                death: 0
             }
-            ]
-        },{
-            date:"2020-01-30",
-            world: {
-                case: 7818,
-                death: 170,
-            },
-            countries: [
+        ]
+    }
+],
+china_province: [
+    {
+        date:"2020-02-02T15:00:00.007Z",
+        provinces:[
             {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 7711,
-                death: 170,
-                suspect: 12167,
-                isolate: null,
-                curve: null
+                name:"Hubei",
+                case: 9074
             },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 14,
-                death: 0
+                name:"Zhejiang",
+                case: 661
             },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 11,
-                death: 0
+                name:"Guangdong",
+                case: 604
             },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 8,
-                death: 0
+                name:"Henan",
+                case: 493
             },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 4,
-                death: 0
+                name:"Hunan",
+                case: 463
             },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 10,
-                death: 0
+                name:"Anhui",
+                case: 340
             },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 7,
-                death: 0
+                name:"Jiangxi",
+                case: 333
             },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 5,
-                death: 0
+                name:"Chongqing",
+                case: 262
             },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"Singapore",
-                case: 10,
-                death: 0
+                name:"Sichuan",
+                case: 236
             },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 2,
-                death: 0
+                name:"Jiangsu",
+                case: 231
             },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"Australia",
-                case: 7,
-                death: 0
+                name:"Shandong",
+                case: 225
             },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0
+                name:"Beijing",
+                case: 183
             },{
-                name:"French",
-                name_vn:"French",
-                code:"fr",
-                case: 5,
-                death: 0
+                name:"Shanghai",
+                case: 177
             },{
-                name:"Malaysia",
-                name_vn:"Malaysia",
-                code:"Malaysia",
-                case: 7,
-                death: 0
+                name:"Fujian",
+                case: 159
             },{
-                name:"Canada",
-                name_vn:"Canada",
-                code:"Canada",
-                case: 3,
-                death: 0
+                name:"Shaanxi",
+                case: 116
             },{
-                name:"Cambodia",
-                name_vn:"Cambodia",
-                code:"Cambodia",
-                case: 1,
-                death: 0
+                name:"Guangxi",
+                case: 111
             },{
-                name:"Sri Lanka",
-                name_vn:"Sri Lanka",
-                code:"Sri Lanka",
-                case: 1,
-                death: 0
+                name:"Hebei",
+                case: 104
             },{
-                name:"Germany",
-                name_vn:"Germany",
-                code:"Germany",
-                case: 4,
-                death: 0
+                name:"Yunnan",
+                case: 99
             },{
-                name:"UAE",
-                name_vn:"UAE",
-                code:"UAE",
-                case: 4,
-                death: 0
+                name:"Heilongjiang",
+                case: 95
             },{
-                name:"Philippines",
-                name_vn:"Philippines",
-                code:"Philippines",
-                case: 1,
-                death: 0
+                name:"Liaoning",
+                case: 64
             },{
-                name:"India",
-                name_vn:"India",
-                code:"India",
-                case: 1,
-                death: 0
+                name:"Hainan",
+                case: 63
             },{
-                name:"Finland",
-                name_vn:"Finland",
-                code:"Finland",
-                case: 1,
-                death: 0
-            }]
-        },{
-            date:"2020-01-29",
-            world: {
-                case: 6065,
-                death: 132,
-            },
-            countries: [
+                name:"Shanxi",
+                case: 56
+            },{
+                name:"Gansu",
+                case: 45
+            },{
+                name:"Tianjin",
+                case: 40
+            },{
+                name:"Guizhou",
+                case: 38
+            },{
+                name:"Ningxia",
+                case: 28
+            },{
+                name:"Inner Mongolia",
+                case: 26
+            },{
+                name:"Xinjia",
+                case: 23
+            },{
+                name:"Jilin",
+                case: 21
+            },{
+                name:"Qinghai",
+                case: 9
+            },{
+                name:"Xizang",
+                case: 1
+            }
+        ]
+    },
+    {
+        date:"2020-02-01T15:00:00.007Z",
+        provinces:[
             {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 5974,
-                death: 132,
-                suspect: 9239,
-                isolate: null,
-                curve: null
+                name:"Hubei",
+                case: 7153
             },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 14,
-                death: 0
+                name:"Zhejiang",
+                case: 599
             },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 7,
-                death: 0
+                name:"Guangdong",
+                case: 520
             },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 8,
-                death: 0
+                name:"Henan",
+                case: 422
             },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 4,
-                death: 0
+                name:"Hunan",
+                case: 389
             },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 8,
-                death: 0
+                name:"Anhui",
+                case: 297
             },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 7,
-                death: 0
+                name:"Jiangxi",
+                case: 286
             },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 5,
-                death: 0
+                name:"Chongqing",
+                case: 238
             },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"Singapore",
-                case: 7,
-                death: 0
+                name:"Sichuan",
+                case: 207
             },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 2,
-                death: 0
+                name:"Shandong",
+                case: 202
             },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"Australia",
-                case: 7,
-                death: 0
+                name:"Jiangsu",
+                case: 202
             },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0
+                name:"Shanghai",
+                case: 169
             },{
-                name:"French",
-                name_vn:"French",
-                code:"fr",
-                case: 4,
-                death: 0
+                name:"Beijing",
+                case: 156
             },{
-                name:"Malaysia",
-                name_vn:"Malaysia",
-                code:"Malaysia",
-                case: 4,
-                death: 0
+                name:"Fujian",
+                case: 144
             },{
-                name:"Canada",
-                name_vn:"Canada",
-                code:"Canada",
-                case: 3,
-                death: 0
+                name:"Shaanxi",
+                case: 101
             },{
-                name:"Cambodia",
-                name_vn:"Cambodia",
-                code:"Cambodia",
-                case: 1,
-                death: 0
+                name:"Guangxi",
+                case: 100
             },{
-                name:"Sri Lanka",
-                name_vn:"Sri Lanka",
-                code:"Sri Lanka",
-                case: 1,
-                death: 0
+                name:"Hebei",
+                case: 96
             },{
-                name:"Germany",
-                name_vn:"Germany",
-                code:"Germany",
-                case: 4,
-                death: 0
+                name:"Yunnan",
+                case: 91
             },{
-                name:"UAE",
-                name_vn:"UAE",
-                code:"UAE",
-                case: 4,
-                death: 0
-            }]
+                name:"Heilongjiang",
+                case: 80
+            },{
+                name:"Liaoning",
+                case: 60
+            },{
+                name:"Hainan",
+                case: 60
+            },{
+                name:"Shanxi",
+                case: 47
+            },{
+                name:"Tianjin",
+                case: 37
+            },{
+                name:"Gansu",
+                case: 35
+            },{
+                name:"Guizhou",
+                case: 29
+            },{
+                name:"Ningxia",
+                case: 26
+            },{
+                name:"Inner Mongolia",
+                case: 23
+            },{
+                name:"Xinjia",
+                case: 18
+            },{
+                name:"Jilin",
+                case: 17
+            },{
+                name:"Qinghai",
+                case: 9
+            },{
+                name:"Xizang",
+                case: 1
+            }
+        ]
+      }
+  ],
+  data: [
+    {
+        date:"2020-02-02T15:00:00.007Z",
+        world: {
+            case: 14557,
+            death: 305,
+            risk:"High"
+        },
+        tranmission_rate_min: 3.0,
+        tranmission_rate_max: 4.0,
+        fatality_rate: 2,
+        incubation_period_min: 2,
+        incubation_period_max: 14,
+        countries: [
+        {
+            name:"Mainland China",
+            case: 14380,
+            death: 304,
+            suspect: null,
+            isolate: null,
+            curve: null,
+            risk:"Very High"
         },{
-            date:"2020-01-28",
-            world: {
-                case: 4593,
-                death: 106,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 4515,
-                death: 106,
-                suspect: 6973,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 14,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 6,
-                death: 0
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 7,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 4,
-                death: 0
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 8,
-                death: 0
-            },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 7,
-                death: 0
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 5,
-                death: 0
-            },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"Singapore",
-                case: 7,
-                death: 0
-            },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 2,
-                death: 0
-            },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"Australia",
-                case: 5,
-                death: 0
-            },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0
-            },{
-                name:"French",
-                name_vn:"French",
-                code:"fr",
-                case: 3,
-                death: 0
-            },{
-                name:"Malaysia",
-                name_vn:"Malaysia",
-                code:"Malaysia",
-                case: 4,
-                death: 0
-            },{
-                name:"Canada",
-                name_vn:"Canada",
-                code:"Canada",
-                case: 2,
-                death: 0
-            },{
-                name:"Cambodia",
-                name_vn:"Cambodia",
-                code:"Cambodia",
-                case: 1,
-                death: 0
-            },{
-                name:"Sri Lanka",
-                name_vn:"Sri Lanka",
-                code:"Sri Lanka",
-                case: 1,
-                death: 0
-            },{
-                name:"Germany",
-                name_vn:"Germany",
-                code:"Germany",
-                case: 1,
-                death: 0
-            }]
+            name:"Japan",
+            case: 20,
+            death: 0,
         },{
-            date:"2020-01-27",
-            world: {
-                case: 2798,
-                death: 80,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 2744,
-                death: 80,
-                suspect: 5794,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 5,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 4,
-                death: 0
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 4,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 4,
-                death: 0
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 8,
-                death: 0
-            },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 5,
-                death: 0
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 5,
-                death: 0
-            },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"Singapore",
-                case: 4,
-                death: 0
-            },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 2,
-                death: 0
-            },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"Australia",
-                case: 4,
-                death: 0
-            },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0
-            },{
-                name:"French",
-                name_vn:"French",
-                code:"fr",
-                case: 3,
-                death: 0
-            },{
-                name:"Malaysia",
-                name_vn:"Malaysia",
-                code:"Malaysia",
-                case: 4,
-                death: 0
-            },{
-                name:"Canada",
-                name_vn:"Canada",
-                code:"Canada",
-                case: 1,
-                death: 0
-            }]
+            name:"Thailand",
+            case: 19,
+            death: 0,
         },{
-            date:"2020-01-26",
-            world: {
-                case: 2014,
-                death: 56,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 1975,
-                death: 56,
-                suspect: null,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 5,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 3,
-                death: 0
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 3,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 2,
-                death: 0
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 5,
-                death: 0
-            },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 2,
-                death: 0
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 2,
-                death: 0
-            },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"Singapore",
-                case: 4,
-                death: 0
-            },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 2,
-                death: 0
-            },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"Australia",
-                case: 4,
-                death: 0
-            },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0
-            },{
-                name:"French",
-                name_vn:"French",
-                code:"fr",
-                case: 3,
-                death: 0
-            },{
-                name:"Malaysia",
-                name_vn:"Malaysia",
-                code:"Malaysia",
-                case: 3,
-                death: 0
-            }]
+            name:"Singapore",
+            case: 18,
+            death: 0,
         },{
-            date:"2020-01-25",
-            world: {
-                case: 1320,
-                death: 41,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 1287,
-                death: 41,
-                suspect: null,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 4,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 3,
-                death: 0
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 3,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 2,
-                death: 0
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 5,
-                death: 0
-            },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 2,
-                death: 0
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 2,
-                death: 0
-            },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"Singapore",
-                case: 3,
-                death: 0
-            },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 2,
-                death: 0
-            },{
-                name:"Australia",
-                name_vn:"Australia",
-                code:"Australia",
-                case: 3,
-                death: 0
-            },{
-                name:"Nepal",
-                name_vn:"Nepal",
-                code:"Nepal",
-                case: 1,
-                death: 0
-            },{
-                name:"French",
-                name_vn:"French",
-                code:"fr",
-                case: 3,
-                death: 0
-            }]
+            name:"South Korea",
+            case: 15,
+            death: 0,
         },{
-            date:"2020-01-24",
-            world: {
-                case: 846,
-                death: 25,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 830,
-                death: 25,
-                suspect: null,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 4,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 1,
-                death: 0
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 1,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 2,
-                death: 0
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 2,
-                death: 0
-            },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 2,
-                death: 0
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 1,
-                death: 0
-            },{
-                name:"Singapore",
-                name_vn:"Singapore",
-                code:"Singapore",
-                case: 1,
-                death: 0
-            },{
-                name:"Vietnam",
-                name_vn:"Vietnam",
-                code:"vn",
-                case: 2,
-                death: 0
-            }]
+            name:"Hong Kong",
+            case: 14,
+            death: 0,
         },{
-            date:"2020-01-23",
-            world: {
-                case: 581,
-                death: 17,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 571,
-                death: 17,
-                suspect: null,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 4,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 1,
-                death: 0
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 1,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 1,
-                death: 0
-            },{
-                name:"Hong Kong",
-                name_vn:"Hong Kong",
-                code:"hk",
-                case: 1,
-                death: 0
-            },{
-                name:"Macau",
-                name_vn:"Macau",
-                code:"Macau",
-                case: 1,
-                death: 0
-            },{
-                name:"United States",
-                name_vn:"United States",
-                code:"us",
-                case: 1,
-                death: 0
-            }]
+            name:"Australia",
+            case: 12,
+            death: 0,
         },{
-            date:"2020-01-22",
-            world: {
-                case: 314,
-                death: 6,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 309,
-                death: 6,
-                suspect: null,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 2,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 1,
-                death: 0
-            },{
-                name:"Taiwan",
-                name_vn:"Taiwan",
-                code:"tw",
-                case: 1,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"kr",
-                case: 1,
-                death: 0
-            }]
+            name:"Taiwan",
+            case: 10,
+            death: 0,
         },{
-            date:"2020-01-21",
-            world: {
-                case: 282,
-                death: 6,
-            },
-            countries: [
-            {
-                name:"China",
-                name_vn:"China",
-                code:"cn",
-                case: 278,
-                death: 6,
-                suspect: null,
-                isolate: null,
-                curve: null
-            },{
-                name:"Thailand",
-                name_vn:"Thailand",
-                code:"Thailand",
-                case: 2,
-                death: 0
-            },{
-                name:"Japan",
-                name_vn:"Japan",
-                code:"jp",
-                case: 1,
-                death: 0
-            },{
-                name:"Korea",
-                name_vn:"Korea",
-                code:"Korea",
-                case: 1,
-                death: 0
-            }]
+            name:"Malaysia",
+            case: 8,
+            death: 0,
+        },{
+            name:"United States",
+            case: 8,
+            death: 0,
+            note:"+ 1 Case in Snohomish, Washington. Male, Age 30s from Jan.21.\n\n"
+                +"+ 2 Cases in Chicago, Illinois. 1 Female at Age 60s from Jan.24; 1 Male husband from Jan.30\n\n"
+                +"+ 3 Cases in California. 2 from Jan.26 in Orange C., L.A.; 1 Male adult from Jan.31 in Santa Clara C.\n\n"
+                +"+ 1 Case in Maricopa County, Arizona. 1 Student from Jan.26.\n\n"
+                +"+ 1 Case in Boston, Massachusetts. 1 Male at Age 20s From Feb.1."
+        },{
+            name:"Germany",
+            case: 8,
+            death: 0,
+        },{
+            name:"Macao",
+            case: 7,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 7,
+            death: 0,
+            suspect: 92,
+            isolate: 27,
+            note:"+ 2 bệnh nhân người Trung Quốc.\n\n+ 3 người Việt Nam, trong đó 2 trường hợp đang được cách ly điều trị tại BC Nhiệt đới cơ sở 2, 1 trường hợp tại BVDK tỉnh Thanh Hoá. Cả 3 đều trở về từ Vũ Hán.\n\n+ 1 người Việt Nam là lễ tân tại khách sạn Khánh Hoà, tiếp xúc với 2 người Trung Quốc đang điều trị tại Việt Nam.\n\n+ 1 bệnh nhân có quốc tịch Mỹ, bay về Việt Nam ngày 14/1, quá cảnh tại sân bay Vũ Hán."
+        },{
+            name:"France",
+            case: 6,
+            death: 0,
+        },{
+            name:"UAE",
+            case: 5,
+            death: 0,
+        },{
+            name:"Canada",
+            case: 4,
+            death: 0,
+        },{
+            name:"United Kingdom",
+            case: 2,
+            death: 0,
+        },{
+            name:"Russia",
+            case: 2,
+            death: 0,
+        },{
+            name:"Italy",
+            case: 2,
+            death: 0,
+        },{
+            name:"Philippines",
+            case: 2,
+            death: 1,
+        },{
+            name:"India",
+            case: 2,
+            death: 0,
+        },{
+            name:"Cambodia",
+            case: 1,
+            death: 0,
+        },{
+            name:"Finland",
+            case: 1,
+            death: 0,
+        },{
+            name:"Sri Lanka",
+            case: 1,
+            death: 0
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0,
+        },{
+            name:"Spain",
+            case: 1,
+            death: 0,
+        },{
+            name:"Sweden",
+            case: 1,
+            death: 0,
         }
-    ]
+        ]
+    },
+    
+    {
+        date:"2020-02-01T15:00:00.007Z",
+        world: {
+            case: 11953,
+            death: 259,
+        },
+        tranmission_rate_min: 3.0,
+        tranmission_rate_max: 4.0,
+        fatality_rate: 2,
+        incubation_period_min: 2,
+        incubation_period_max: 14,
+        countries: [
+        {
+            name:"Mainland China",
+            case: 11791,
+            death: 259,
+            suspect: null,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 19,
+            death: 0,
+        },{
+            name:"Japan",
+            case: 17,
+            death: 0,
+        },{
+            name:"Singapore",
+            case: 16,
+            death: 0,
+        },{
+            name:"Hong Kong",
+            case: 13,
+            death: 0,
+        },{
+            name:"Australia",
+            case: 12,
+            death: 0,
+        },{
+            name:"South Korea",
+            case: 12,
+            death: 0,
+        },{
+            name:"Taiwan",
+            case: 10,
+            death: 0,
+        },{
+            name:"Malaysia",
+            case: 8,
+            death: 0,
+        },{
+            name:"United States",
+            case: 7,
+            death: 0,
+        },{
+            name:"Germany",
+            case: 7,
+            death: 0,
+        },{
+            name:"Macao",
+            case: 7,
+            death: 0
+        },{
+            name:"France",
+            case: 6,
+            death: 0,
+        },{
+            name:"Vietnam",
+            case: 6,
+            death: 0,
+            suspect: 153,
+            isolate: 27,
+        },{
+            name:"UAE",
+            case: 4,
+            death: 0,
+        },{
+            name:"Canada",
+            case: 4,
+            death: 0,
+        },{
+            name:"United Kingdom",
+            case: 2,
+            death: 0,
+
+        },{
+            name:"Russia",
+            case: 2,
+            death: 0,
+
+        },{
+            name:"Italy",
+            case: 2,
+            death: 0,
+        },{
+            name:"Finland",
+            case: 1,
+            death: 0,
+        },{
+            name:"Sri Lanka",
+            case: 1,
+            death: 0
+        },{
+            name:"Cambodia",
+            case: 1,
+            death: 0,
+        },{
+            name:"Philippines",
+            case: 1,
+            death: 0,
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0,
+        },{
+            name:"India",
+            case: 1,
+            death: 0,
+        },{
+            name:"Spain",
+            case: 1,
+            death: 0,
+        },{
+            name:"Sweden",
+            case: 1,
+            death: 0,
+        }
+        ]
+    },{
+        date:"2020-01-31T15:00:00.007Z",
+        world: {
+            case: 9826,
+            death: 213,
+        },
+        tranmission_rate_min: 2.0,
+        tranmission_rate_max: 3.1,
+        fatality_rate: 2,
+        incubation_period_min: 2,
+        incubation_period_max: 14,
+        countries: [
+        {
+            name:"Mainland China",
+            case: 9692,
+            death: 213,
+            suspect: 15238,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 14,
+            death: 0,
+        },{
+            name:"Singapore",
+            case: 13,
+            death: 0,
+        },{
+            name:"Japan",
+            case: 14,
+            death: 0,
+
+        },{
+            name:"South Korea",
+            case: 11,
+            death: 0,
+
+        },{
+            name:"Hong Kong",
+            case: 12,
+            death: 0,
+
+        },{
+            name:"Taiwan",
+            case: 9,
+            death: 0,
+
+        },{
+            name:"Macao",
+            case: 7,
+            death: 0,
+
+        },{
+            name:"Australia",
+            case: 9,
+            death: 0,
+
+        },{
+            name:"Malaysia",
+            case: 8,
+            death: 0,
+
+        },{
+            name:"France",
+            case: 6,
+            death: 0,
+
+        },{
+            name:"United States",
+            case: 6,
+            death: 0,
+
+        },{
+            name:"Germany",
+            case: 5,
+            death: 0,
+
+        },{
+            name:"Vietnam",
+            case: 5,
+            death: 0,
+            suspect: 32,
+            isolate: 97,
+        },{
+            name:"UAE",
+            case: 4,
+            death: 0,
+
+        },{
+            name:"Canada",
+            case: 3,
+            death: 0,
+
+        },{
+            name:"Italy",
+            case: 2,
+            death: 0,
+
+        },{
+            name:"Finland",
+            case: 1,
+            death: 0,
+
+        },{
+            name:"Sri Lanka",
+            case: 1,
+            death: 0,
+
+        },{
+            name:"Cambodia",
+            case: 1,
+            death: 0,
+
+        },{
+            name:"Philippines",
+            case: 1,
+            death: 0,
+
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0,
+
+        },{
+            name:"India",
+            case: 1,
+            death: 0,
+
+        }
+        ]
+    },{
+        date:"2020-01-30T15:00:00.007Z",
+        world: {
+            case: 7818,
+            death: 170,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 7711,
+            death: 170,
+            suspect: 12167,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 14,
+            death: 0
+        },{
+            name:"Japan",
+            case: 11,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 8,
+            death: 0
+        },{
+            name:"Korea",
+            case: 4,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 10,
+            death: 0
+        },{
+            name:"Macau",
+            case: 7,
+            death: 0
+        },{
+            name:"United States",
+            case: 5,
+            death: 0
+        },{
+            name:"Singapore",
+            case: 10,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 2,
+            death: 0
+        },{
+            name:"Australia",
+            case: 7,
+            death: 0
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0
+        },{
+            name:"French",
+            case: 5,
+            death: 0
+        },{
+            name:"Malaysia",
+            case: 7,
+            death: 0
+        },{
+            name:"Canada",
+            case: 3,
+            death: 0
+        },{
+            name:"Cambodia",
+            case: 1,
+            death: 0
+        },{
+            name:"Sri Lanka",
+            case: 1,
+            death: 0
+        },{
+            name:"Germany",
+            case: 4,
+            death: 0
+        },{
+            name:"UAE",
+            case: 4,
+            death: 0
+        },{
+            name:"Philippines",
+            case: 1,
+            death: 0
+        },{
+            name:"India",
+            case: 1,
+            death: 0
+        },{
+            name:"Finland",
+            case: 1,
+            death: 0
+        }]
+    },{
+        date:"2020-01-29T15:00:00.007Z",
+        world: {
+            case: 6065,
+            death: 132,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 5974,
+            death: 132,
+            suspect: 9239,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 14,
+            death: 0
+        },{
+            name:"Japan",
+            case: 7,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 8,
+            death: 0
+        },{
+            name:"Korea",
+            case: 4,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 8,
+            death: 0
+        },{
+            name:"Macau",
+            case: 7,
+            death: 0
+        },{
+            name:"United States",
+            case: 5,
+            death: 0
+        },{
+            name:"Singapore",
+            case: 7,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 2,
+            death: 0
+        },{
+            name:"Australia",
+            case: 7,
+            death: 0
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0
+        },{
+            name:"French",
+            case: 4,
+            death: 0
+        },{
+            name:"Malaysia",
+            case: 4,
+            death: 0
+        },{
+            name:"Canada",
+            case: 3,
+            death: 0
+        },{
+            name:"Cambodia",
+            case: 1,
+            death: 0
+        },{
+            name:"Sri Lanka",
+            case: 1,
+            death: 0
+        },{
+            name:"Germany",
+            case: 4,
+            death: 0
+        },{
+            name:"UAE",
+            case: 4,
+            death: 0
+        }]
+    },{
+        date:"2020-01-28T15:00:00.007Z",
+        world: {
+            case: 4593,
+            death: 106,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 4515,
+            death: 106,
+            suspect: 6973,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 14,
+            death: 0
+        },{
+            name:"Japan",
+            case: 6,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 7,
+            death: 0
+        },{
+            name:"Korea",
+            case: 4,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 8,
+            death: 0
+        },{
+            name:"Macau",
+            case: 7,
+            death: 0
+        },{
+            name:"United States",
+            case: 5,
+            death: 0
+        },{
+            name:"Singapore",
+            case: 7,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 2,
+            death: 0
+        },{
+            name:"Australia",
+            case: 5,
+            death: 0
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0
+        },{
+            name:"French",
+            case: 3,
+            death: 0
+        },{
+            name:"Malaysia",
+            case: 4,
+            death: 0
+        },{
+            name:"Canada",
+            case: 2,
+            death: 0
+        },{
+            name:"Cambodia",
+            case: 1,
+            death: 0
+        },{
+            name:"Sri Lanka",
+            case: 1,
+            death: 0
+        },{
+            name:"Germany",
+            case: 1,
+            death: 0
+        }]
+    },{
+        date:"2020-01-27T15:00:00.007Z",
+        world: {
+            case: 2798,
+            death: 80,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 2744,
+            death: 80,
+            suspect: 5794,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 5,
+            death: 0
+        },{
+            name:"Japan",
+            case: 4,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 4,
+            death: 0
+        },{
+            name:"Korea",
+            case: 4,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 8,
+            death: 0
+        },{
+            name:"Macau",
+            case: 5,
+            death: 0
+        },{
+            name:"United States",
+            case: 5,
+            death: 0
+        },{
+            name:"Singapore",
+            case: 4,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 2,
+            death: 0
+        },{
+            name:"Australia",
+            case: 4,
+            death: 0
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0
+        },{
+            name:"French",
+            case: 3,
+            death: 0
+        },{
+            name:"Malaysia",
+            case: 4,
+            death: 0
+        },{
+            name:"Canada",
+            case: 1,
+            death: 0
+        }]
+    },{
+        date:"2020-01-26T15:00:00.007Z",
+        world: {
+            case: 2014,
+            death: 56,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 1975,
+            death: 56,
+            suspect: null,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 5,
+            death: 0
+        },{
+            name:"Japan",
+            case: 3,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 3,
+            death: 0
+        },{
+            name:"Korea",
+            case: 2,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 5,
+            death: 0
+        },{
+            name:"Macau",
+            case: 2,
+            death: 0
+        },{
+            name:"United States",
+            case: 2,
+            death: 0
+        },{
+            name:"Singapore",
+            case: 4,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 2,
+            death: 0
+        },{
+            name:"Australia",
+            case: 4,
+            death: 0
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0
+        },{
+            name:"French",
+            case: 3,
+            death: 0
+        },{
+            name:"Malaysia",
+            case: 3,
+            death: 0
+        }]
+    },{
+        date:"2020-01-25T15:00:00.007Z",
+        world: {
+            case: 1320,
+            death: 41,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 1287,
+            death: 41,
+            suspect: null,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 4,
+            death: 0
+        },{
+            name:"Japan",
+            case: 3,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 3,
+            death: 0
+        },{
+            name:"Korea",
+            case: 2,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 5,
+            death: 0
+        },{
+            name:"Macau",
+            case: 2,
+            death: 0
+        },{
+            name:"United States",
+            case: 2,
+            death: 0
+        },{
+            name:"Singapore",
+            case: 3,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 2,
+            death: 0
+        },{
+            name:"Australia",
+            case: 3,
+            death: 0
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0
+        },{
+            name:"French",
+            case: 3,
+            death: 0
+        }]
+    },{
+        date:"2020-01-24T15:00:00.007Z",
+        world: {
+            case: 846,
+            death: 25,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 830,
+            death: 25,
+            suspect: null,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 4,
+            death: 0
+        },{
+            name:"Japan",
+            case: 1,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 1,
+            death: 0
+        },{
+            name:"Korea",
+            case: 2,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 2,
+            death: 0
+        },{
+            name:"Macau",
+            case: 2,
+            death: 0
+        },{
+            name:"United States",
+            case: 1,
+            death: 0
+        },{
+            name:"Singapore",
+            case: 1,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 2,
+            death: 0
+        }]
+    },{
+        date:"2020-01-23T15:00:00.007Z",
+        world: {
+            case: 581,
+            death: 17,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 571,
+            death: 17,
+            suspect: null,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 4,
+            death: 0
+        },{
+            name:"Japan",
+            case: 1,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 1,
+            death: 0
+        },{
+            name:"Korea",
+            case: 1,
+            death: 0
+        },{
+            name:"Hong Kong",
+            case: 1,
+            death: 0
+        },{
+            name:"Macau",
+            case: 1,
+            death: 0
+        },{
+            name:"United States",
+            case: 1,
+            death: 0
+        }]
+    },{
+        date:"2020-01-22T15:00:00.007Z",
+        world: {
+            case: 314,
+            death: 6,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 309,
+            death: 6,
+            suspect: null,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 2,
+            death: 0
+        },{
+            name:"Japan",
+            case: 1,
+            death: 0
+        },{
+            name:"Taiwan",
+            case: 1,
+            death: 0
+        },{
+            name:"Korea",
+            case: 1,
+            death: 0
+        }]
+    },{
+        date:"2020-01-21T15:00:00.007Z",
+        world: {
+            case: 282,
+            death: 6,
+        },
+        countries: [
+        {
+            name:"Mainland China",
+            case: 278,
+            death: 6,
+            suspect: null,
+            isolate: null,
+            curve: null
+        },{
+            name:"Thailand",
+            case: 2,
+            death: 0
+        },{
+            name:"Japan",
+            case: 1,
+            death: 0
+        },{
+            name:"Korea",
+            case: 1,
+            death: 0
+        }]
+    }
+  ]
 }
 
 

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "CoronaVirus Live Stats-Wuhan nCoV",
-    "slug": "nCoV",
+    "slug": "nCoV-iOS",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -22,14 +22,15 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "buildNumber":"1.0.0",
       "bundleIdentifier": "com.yamastack.nCoV",
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+        "googleMobileAdsAppId": "ca-app-pub-3071645117258809~2229955551"
       }
     },
     "android": {
       "package": "com.yamastack.nCoV",
-      "versionCode": 3,
+      "versionCode": 1,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-3071645117258809~1993796612"
       }
