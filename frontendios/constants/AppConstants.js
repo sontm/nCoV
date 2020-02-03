@@ -1,5 +1,6 @@
 import { Platform} from 'react-native';
 import Layout from './Layout';
+import Constants from 'expo-constants';
 
 // TODO
 
@@ -18,7 +19,7 @@ const ADS_INTERESTIALID_ANDROID = "ca-app-pub-3071645117258809/2595064866"
 const ADS_BANNERID_IOS= "ca-app-pub-3071645117258809/3938337631"
 const ADS_INTERESTIALID_IOS = "ca-app-pub-3071645117258809/7494439266"
 
-const STATUSBAR_HEIGHT = Platform.OS == 'ios' ? 20 : 0;
+const STATUSBAR_HEIGHT = Platform.OS == 'ios' ? Constants.statusBarHeight : 0;
 const BANNER_ID = Platform.OS === 'ios' ? ADS_BANNERID_IOS : ADS_BANNERID_ANDROID;
 const INTERESTIAL_ID = Platform.OS === 'ios' ? ADS_INTERESTIALID_IOS : ADS_INTERESTIALID_ANDROID;
 

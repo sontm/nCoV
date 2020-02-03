@@ -521,7 +521,7 @@ class HomeScreen extends React.Component {
           
           <HomeTotalCasesByTime />
 
-          <View style={{flexDirection:"row", alignSelf: "flex-start", marginBottom: 5}}>
+          {/* <View style={{flexDirection:"row", alignSelf: "flex-start", marginBottom: 5, marginLeft: 6}}>
             <Text style={{fontSize: 20, }}>
               {AppLocales.t("NHOME_HEADER_LATEST_MAP")}
             </Text>
@@ -540,7 +540,7 @@ class HomeScreen extends React.Component {
               WHO
             </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
                       
           <Text style={{alignSelf: "flex-end", fontSize: 14, marginRight: 5, fontStyle:"italic", color:AppConstants.COLOR_TEXT_LIGHT_INFO, marginTop: 3}}>
             {"Version: " + AppConstants.DEFAULT_VERSION}

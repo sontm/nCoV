@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Platform, StyleSheet, View, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Root } from "native-base";
+import Constants from 'expo-constants';
 
 import AppNavigator from './navigation/AppNavigator';
 import { store, persistor } from './redux/store';
