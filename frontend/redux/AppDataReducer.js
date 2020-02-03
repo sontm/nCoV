@@ -14,6 +14,28 @@ const APPDATA_SYNC_LATEST = 'APPDATA_SYNC_LATEST';
 const NCOV_DATA = {
     vietnam_province: [
     {
+        date:"2020-02-03T15:00:00.007Z",
+        provinces:[
+            {
+                name:"TP.HCM",
+                case: 3,
+                death: 0
+            },{
+                name:"Vĩnh Phúc",
+                case: 3,
+                death: 0
+            },{
+                name:"Thanh Hoá",
+                case: 1,
+                death: 0
+            },{
+                name:"Khánh Hoà",
+                case: 1,
+                death: 0
+            }
+        ]
+    },
+    {
         date:"2020-02-02T15:00:00.007Z",
         provinces:[
             {
@@ -259,6 +281,154 @@ china_province: [
       }
   ],
   data: [
+      {
+        date:"2020-02-03T15:00:00.007Z",
+        world: {
+            case: 17488,
+            death: 362,
+            curve: 523,
+            risk:"Very High"
+        },
+        tranmission_rate_min: 3.0,
+        tranmission_rate_max: 4.0,
+        fatality_rate: 2,
+        incubation_period_min: 2,
+        incubation_period_max: 14,
+        countries: [
+        {
+            name:"Mainland China",
+            case: 17302,
+            death: 361,
+            suspect: null,
+            isolate: null,
+            severe: 2296,
+            curve: 512,
+            risk:"Very High"
+        },{
+            name:"Japan",
+            case: 20,
+            death: 0,
+        },{
+            name:"Thailand",
+            case: 19,
+            death: 0,
+            curve: 7
+        },{
+            name:"Singapore",
+            case: 18,
+            death: 0,
+        },{
+            name:"South Korea",
+            case: 15,
+            death: 0,
+        },{
+            name:"Hong Kong",
+            case: 15,
+            death: 0,
+        },{
+            name:"Australia",
+            case: 12,
+            death: 0,
+            curve: 2
+        },{
+            name:"United States",
+            case: 11,
+            death: 0,
+            note:"+ 1 Case in Snohomish, Washington. Male, Age 30s from Jan.21.\n\n"
+                +"+ 2 Cases in Chicago, Illinois. 1 Female at Age 60s from Jan.24; 1 Male husband from Jan.30\n\n"
+                +"+ 3 Cases in California. 2 from Jan.26 in Orange C., L.A.; 1 Male adult from Jan.31 in Santa Clara C.\n\n"
+                +"+ 1 Case in Maricopa County, Arizona. 1 Student from Jan.26.\n\n"
+                +"+ 1 Case in Boston, Massachusetts. 1 Male at Age 20s From Feb.1.\n\n"
+                +"+ 1 Case in Santa Clara C., California. 1 Female From Feb.2.\n\n"
+                +"+ 2 Case in San Benito C., California. 1 Male and 1 Female at age 50s From Feb.2.\n\n"
+        },{
+            name:"Taiwan",
+            case: 10,
+            death: 0,
+        },{
+            name:"Germany",
+            case: 10,
+            death: 0,
+        },{
+            name:"Malaysia",
+            case: 8,
+            death: 0,
+        },{
+            name:"Macao",
+            case: 8,
+            death: 0
+        },{
+            name:"Vietnam",
+            case: 8,
+            death: 0,
+            suspect: 304,
+            isolate: 270,
+            curve: 2,
+            note:"+ 2 bệnh nhân người Trung Quốc.\n\n"
+                +"+ 3 người Việt Nam, trong đó 2 trường hợp đang được cách ly điều trị tại BC Nhiệt đới cơ sở 2, 1 trường hợp tại BVDK tỉnh Thanh Hoá. Cả 3 đều trở về từ Vũ Hán.\n\n"
+                +"+ 1 người Việt Nam là lễ tân tại khách sạn Khánh Hoà, tiếp xúc với 2 người Trung Quốc đang điều trị tại Việt Nam.\n\n"
+                +"+ 1 bệnh nhân có quốc tịch Mỹ, bay về Việt Nam ngày 14/1, quá cảnh tại sân bay Vũ Hán.\n\n"
+                +"+ Sáng 3/2, Bộ Y tế xác nhận nữ bệnh nhân 29 tuổi, là công nhân trở về từ Vũ Hán, dương tính với nCoV."
+        },{
+            name:"France",
+            case: 6,
+            death: 0
+        },{
+            name:"UAE",
+            case: 5,
+            death: 0,
+        },{
+            name:"Canada",
+            case: 4,
+            death: 0,
+        },{
+            name:"India",
+            case: 3,
+            death: 0,
+        },{
+            name:"United Kingdom",
+            case: 2,
+            death: 0,
+        },{
+            name:"Russia",
+            case: 2,
+            death: 0,
+        },{
+            name:"Italy",
+            case: 2,
+            death: 0,
+        },{
+            name:"Philippines",
+            case: 2,
+            death: 1,
+        },{
+            name:"Cambodia",
+            case: 1,
+            death: 0,
+        },{
+            name:"Finland",
+            case: 1,
+            death: 0,
+        },{
+            name:"Sri Lanka",
+            case: 1,
+            death: 0,
+            curve: 1
+        },{
+            name:"Nepal",
+            case: 1,
+            death: 0,
+        },{
+            name:"Spain",
+            case: 1,
+            death: 0,
+        },{
+            name:"Sweden",
+            case: 1,
+            death: 0,
+        }
+        ]
+    },
     {
         date:"2020-02-02T15:00:00.007Z",
         world: {

@@ -24,7 +24,7 @@ const INTERESTIAL_ID = Platform.OS === 'ios' ? ADS_INTERESTIALID_IOS : ADS_INTER
 
 
 export default {
-    DEFAULT_VERSION: "20200202-1",
+    DEFAULT_VERSION: "20200203-F",
     IS_DEBUG_MODE: true,
     // TODO Enable these values
     SETTING_KM_SHOWWARN: 100,

@@ -28,7 +28,8 @@ export default {
     NHOME_CASE_DEATH: "Death",
     NHOME_CASE_SUSPECT: "Suspect",
     NHOME_CASE_ISOLATE: "Isolate",
-    NHOME_CASE_CURVED: "Curved",
+    NHOME_CASE_CURVED: "Recovered",
+    NHOME_CASE_CURVED_VN: "Recovered (Hồi Phục)",
 
     NHOME_CASE_CONFIRMED_VN: "Case (Nhiễm Bệnh)",
     NHOME_CASE_DEATH_VN: "Death (Tử Vong)",

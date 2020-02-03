@@ -150,13 +150,33 @@ class HomeScreen extends React.Component {
                 
                 
                 <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center"}}>
+
+                {theData.data[0].world.curve ? 
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 13, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_CURVED")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_D3_DARK_GREEN, fontSize: 34}}>
+                      {(theData.data[0].world.curve)}</Text>
+                  </View>
+
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {theData.data[1].world.curve ? AppUtils.formatValueWithSign(theData.data[0].world.curve - theData.data[1].world.curve) : ""}</Text>
+                  
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {theData.data[1].world.curve ? AppLocales.t("NHOME_GENERAL_PREV_DAY") : ""}
+                  </Text>
+                </View> : null}
+
                 <View style={{alignItems: "center"}}>
                   <Text style={{alignSelf: "center", fontSize: 15, 
                     color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
                   {AppLocales.t("NHOME_CASE_CONFIRMED")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 40}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 38}}>
                       {(theData.data[0].world.case)}</Text>
   
                   </View>
@@ -173,7 +193,7 @@ class HomeScreen extends React.Component {
                   {AppLocales.t("NHOME_CASE_DEATH")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 38}}>
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 34}}>
                       {(theData.data[0].world.death)}</Text>
                   </View>
                   <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
@@ -182,6 +202,7 @@ class HomeScreen extends React.Component {
                     {AppLocales.t("NHOME_GENERAL_PREV_DAY")}
                   </Text>
                 </View>
+                
                 </View>
               </View>
             </View>
@@ -204,13 +225,33 @@ class HomeScreen extends React.Component {
                 </View>
                 
                 <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center"}}>
+
+                {theData.data[0].world.curve ? 
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 13, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_CURVED")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_D3_DARK_GREEN, fontSize: 32}}>
+                      {(theData.data[0].countries[0].curve)}</Text>
+                  </View>
+
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {theData.data[1].countries[0].curve ? AppUtils.formatValueWithSign(theData.data[0].countries[0].curve - theData.data[1].countries[0].curve) : ""}</Text>
+                  
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {theData.data[1].countries[0].curve ? AppLocales.t("NHOME_GENERAL_PREV_DAY") : ""}
+                  </Text>
+                </View> : null}
+
                 <View style={{alignItems: "center"}}>
                   <Text style={{alignSelf: "center", fontSize: 15, 
                     color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
                   {AppLocales.t("NHOME_CASE_CONFIRMED")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 34}}>
                       {(theData.data[0].countries[0].case)}</Text>
                   </View>
                   <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
@@ -226,7 +267,7 @@ class HomeScreen extends React.Component {
                   {AppLocales.t("NHOME_CASE_DEATH")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 32}}>
                       {(theData.data[0].countries[0].death)}</Text>
                   </View>
                   <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
@@ -256,13 +297,34 @@ class HomeScreen extends React.Component {
                 </Text>
                 
                 <View style={{flexDirection:"row",justifyContent: "space-evenly",alignItems: "center"}}>
+                {(theData.data[0].world.curve && theData.data[0].countries[0].curve) ? 
+                <View style={{alignItems: "center"}}>
+                  <Text style={{alignSelf: "center", fontSize: 13, 
+                    color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                  {AppLocales.t("NHOME_CASE_CURVED")}
+                  </Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Text style={{color: AppConstants.COLOR_D3_DARK_GREEN, fontSize: 32}}>
+                      {(theData.data[0].world.curve - theData.data[0].countries[0].curve)}</Text>
+                  </View>
+
+                  <Text style={{marginTop: 2, fontSize: 20, color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
+                      {(theData.data[1].world.curve - theData.data[1].countries[0].curve) ? 
+                        AppUtils.formatValueWithSign((theData.data[0].world.curve - theData.data[0].countries[0].curve) - 
+                          (theData.data[1].world.curve - theData.data[1].countries[0].curve)) : ""}</Text>
+                  
+                  <Text style={{alignSelf: "center", fontSize: 12,color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {(theData.data[1].world.curve - theData.data[1].countries[0].curve) ? AppLocales.t("NHOME_GENERAL_PREV_DAY") : ""}
+                  </Text>
+                </View> : null}
+
                 <View style={{alignItems: "center"}}>
                   <Text style={{alignSelf: "center", fontSize: 15, 
                     color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
                   {AppLocales.t("NHOME_CASE_CONFIRMED")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 34}}>
                       {(theData.data[0].world.case - 
                         theData.data[0].countries[0].case)}</Text>
                   </View>
@@ -282,7 +344,7 @@ class HomeScreen extends React.Component {
                   {AppLocales.t("NHOME_CASE_DEATH")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 36}}>
+                    <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 32}}>
                       {(theData.data[0].world.death - 
                         theData.data[0].countries[0].death)}</Text>
                   </View>
@@ -377,11 +439,11 @@ class HomeScreen extends React.Component {
                 <View style={{alignItems: "center"}}>
                   <Text style={{alignSelf: "center", fontSize: 15, 
                     color: AppConstants.COLOR_TEXT_DARKEST_INFO}}>
-                  {AppLocales.t("NHOME_CASE_ISOLATE_VN")}
+                  {vietnamData.curve ? AppLocales.t("NHOME_CASE_CURVED_VN") : AppLocales.t("NHOME_CASE_ISOLATE_VN")}
                   </Text>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Text style={{color: AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
-                      {(vietnamData.isolate)}</Text>
+                    <Text style={{color: vietnamData.curve ? AppConstants.COLOR_D3_DARK_GREEN : AppConstants.COLOR_HEADER_BG, fontSize: 36}}>
+                      {(vietnamData.curve ? vietnamData.curve : vietnamData.isolate)}</Text>
                   </View>
                 </View>
 
@@ -561,7 +623,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,
     minHeight: Layout.window.height - 50,
-    paddingBottom: 40
+    paddingBottom: 30
   },
   contentContainer: {
     backgroundColor: AppConstants.COLOR_GREY_LIGHT_BG,

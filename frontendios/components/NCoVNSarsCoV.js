@@ -15,7 +15,7 @@ import AppLocales from '../constants/i18n'
 import {
     LineChart
   } from "react-native-chart-kit";
-import { NoDataText, TypoH5 } from './StyledText';
+import { NoDataText, TypoH5, TypoH4 } from './StyledText';
 
 class NCoVNSarsCoV extends React.Component {
   constructor(props) {
@@ -31,32 +31,38 @@ class NCoVNSarsCoV extends React.Component {
     let theData = this.props.appData.ncov;
     // let caseArr = [{x:1,y:1},{x:2, y: 8096},{x:3,y:theData.data[0].world.case},{x:4,y:1}]
     // let deathArr = [{x:1,y:1},{x:2, y: 774},{x:3,y:theData.data[0].world.death},{x:4,y:1}]
-    let caseArr = [{x:1, y: 8096},{x:2,y:theData.data[0].world.case}]
-    let deathArr = [{x:1, y: 774},{x:2,y:theData.data[0].world.death}]
-    let arrLabelX = ["SARS-CoV", "nCoV"]
-    let theBarWidth = 35;
+    let caseArr = [{x:1, y: 8096},{x:2, y: 2494},{x:3,y:theData.data[0].world.case}]
+    let deathArr = [{x:1, y: 774},{x:2, y: 858},{x:3,y:theData.data[0].world.death}]
+    let arrLabelX = ["MERS-CoV","SARS-CoV", "nCoV"]
+    let theBarWidth = 25;
     return (
         <View style={styles.container}>
             <View style={{...styles.textRow, alignSelf:"center"}}>
-                <Text><H3>
-                    SARS(2003) vs nCoV
-                </H3></Text>
+                <Text><TypoH4>
+                    SARS(2003) vs MERS(2012) vs nCoV
+                </TypoH4></Text>
             </View>
 
             <View style={{flexDirection:"row", justifyContent:"space-around", marginTop: 10}}>
-                <Text style={{alignSelf: "center", fontSize: 11, color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                <Text style={{alignSelf: "center", fontSize: 10, color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
                     {AppLocales.t("NHOME_FATAL_RATE")}
                 </Text>
-                <Text style={{alignSelf: "center", fontSize: 11, color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                <Text style={{alignSelf: "center", fontSize: 10, color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
+                    {AppLocales.t("NHOME_FATAL_RATE")}
+                </Text>
+                <Text style={{alignSelf: "center", fontSize: 10, color: AppConstants.COLOR_TEXT_LIGHT_INFO}}>
                     {AppLocales.t("NHOME_FATAL_RATE")}
                 </Text>
             </View>
 
             <View style={{flexDirection:"row", justifyContent:"space-around"}}>
-                <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 30}}>
+                <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 26}}>
                     {"9.6%"}
                 </Text>
-                <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 30}}>
+                <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 26}}>
+                    {"34.4%"}
+                </Text>
+                <Text style={{color: AppConstants.COLOR_GOOGLE, fontSize: 26}}>
                     {AppUtils.formatToPercent(theData.data[0].world.death, theData.data[0].world.death+theData.data[0].world.case)}
                 </Text>
             </View>
@@ -66,7 +72,7 @@ class NCoVNSarsCoV extends React.Component {
                     width={Layout.window.width}
                     height={250}
                     padding={{top:20,bottom:20,left:10,right:10}}
-                    domainPadding={{y: [0, 0], x: [Layout.window.width/4, Layout.window.width/4]}}
+                    domainPadding={{y: [0, 0], x: [Layout.window.width/6-10, Layout.window.width/6+10]}}
                     colorScale={AppConstants.COLOR_SCALE_10}
                 >
                 <VictoryStack
@@ -77,8 +83,8 @@ class NCoVNSarsCoV extends React.Component {
                     <VictoryBar
                         barWidth={theBarWidth}
                         data={caseArr}
-                        labels={({ datum }) => `${datum.y>0?(datum.y+" cases"):""}`}
-                        labelComponent={<VictoryLabel dx={50} dy={20} style={{fontSize: 10}}/>}
+                        labels={({ datum }) => `${datum.y>0?(datum.y+"\ncases"):""}`}
+                        labelComponent={<VictoryLabel dx={30} dy={20} style={{fontSize: 10}}/>}
                     />
                     <VictoryBar
                         barWidth={theBarWidth}
